@@ -22,19 +22,22 @@ const Stair = function(ctx, x, y, color, isVertical) {
                        }
     };
 
-    const sprite = Sprite(ctx, x, y);
+    const sprite = Sprite(ctx, x, y, true);
 
     // The sprite object is configured for the player sprite here.
     filename = "";
+    isVerticalBoolean = false;
     if (isVertical == "vertical"){
         filename = "image/stair.png";
+        isVerticalBoolean = true
     }else{
         filename = "image/stair2.png";
     }
     sprite.setSequence(sequences[isVertical][color])
-          .setScale(2)
+          .setScale(40)
           .setShadowScale({ x: 0.75, y: 0.20 })
-          .useSheet(filename);
+          .useSheet(filename)
+          .setIsVertical(isVerticalBoolean);
 
     const setColor = function(color) {
         sprite.setSequence(sequences[color]);
