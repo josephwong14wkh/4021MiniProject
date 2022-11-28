@@ -27,9 +27,9 @@ const Stair = function(ctx, x, y, color, isVertical) {
     // The sprite object is configured for the player sprite here.
     filename = "";
     if (isVertical == "vertical"){
-        filename = "stair.png";
+        filename = "image/stair.png";
     }else{
-        filename = "stair2.png";
+        filename = "image/stair2.png";
     }
     sprite.setSequence(sequences[isVertical][color])
           .setScale(2)

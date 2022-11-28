@@ -30,6 +30,9 @@ const Enemy = function(ctx, x, y) {
         sprite.setXY(x, y);
     };
 
+    let reverse = false;
+    let exist = true;
+
     return {
         getXY: sprite.getXY,
         setXY: sprite.setXY,
@@ -38,6 +41,8 @@ const Enemy = function(ctx, x, y) {
         getBoundingBox: sprite.getBoundingBox,
         randomize: randomize,
         draw: sprite.draw,
-        update: sprite.update
+        update: sprite.update,
+        reverse: reverse,
+        exist: exist
     };
 }
