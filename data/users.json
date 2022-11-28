@@ -1,0 +1,22 @@
+{
+ "tony": {
+  "avatar": "Owl",
+  "name": "Tony Lee",
+  "password": "$2b$10$Yxb2fSgA5RFn9Oz9TxjLLuve/GiPXCs2DWVFhyFDr4qz39qglwp8e"
+ },
+ "may": {
+  "avatar": "Rabbit",
+  "name": "May Wong",
+  "password": "$2b$10$gLc3Ri9W6P650EKKbexw6uvirV8Bar7gmvAtMcoMiPiR3rsY50GVu"
+ },
+ "edward": {
+  "avatar": "Hamster",
+  "name": "kwok",
+  "password": "$2b$10$q3SIYT0tDh.qmpKLUvrUGer9Y4Btc3uqOMuOa./YQU9X/34AntVMO"
+ },
+ "gibson": {
+  "avatar": "Rabbit Face",
+  "name": "lam",
+  "password": "$2b$10$4I1y11YxgnLBzU7T25JbRut/8yjn5CzvY9lCJrWYRaRk98.znlI.u"
+ }
+}

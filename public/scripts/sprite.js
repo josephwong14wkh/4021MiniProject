@@ -136,26 +136,24 @@ const Sprite = function(ctx, x, y) {
         /* Get the display size of the sprite */
         const size = getDisplaySize();
 
-
         /* TODO */
         /* Replace the following code to draw the sprite correctly */
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(
             sheet,
-            sequence.x + index*sequence.width,
+            sequence.x + index * sequence.width,
             sequence.y,
-            sequence.width,
-            sequence.height,
+            sequence.width, sequence.height,
             parseInt(x - size.width / 2),
-            parseInt(y - size.height / 2),
+            parseInt(y - size. height / 2),
             size.width,
-            size.height);
-
+            size.height
+        )
 
         /* Restore saved settings */
         ctx.restore();
     };
-
+     
     // This function draws the shadow and the sprite.
     const draw = function() {
         if (isReady()) {
@@ -170,19 +168,17 @@ const Sprite = function(ctx, x, y) {
     // - `time` - The timestamp when this function is called
     const update = function(time) {
         if (lastUpdate == 0) lastUpdate = time;
-
-
+   
         /* TODO */
         /* Move to the next sprite when the timing is right */
-        if (time - lastUpdate >= sequence.timing){
+        if (time - lastUpdate >= sequence.timing) {
             index++;
-            if(index >= sequence.count){
-                if (sequence.loop){
+            if (index >= sequence.count) {
+                if (sequence.loop)
                     index = 0;
-                }else{
+                else
                     index--;
-                }
-            } 
+            }
             lastUpdate = time;
         }
 
