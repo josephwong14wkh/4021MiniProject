@@ -13,7 +13,7 @@ const enemyMove = (enemies, cvleft, cvright) => {
     
 }
     
-const checkTouchEnemy = (p1, p2, enemies, cvleft, cvright) => {
+const checkTouchEnemy = (p1, p2, enemies, enemy_y_range, cvleft, cvright) => {
     const p1box = p1.getBoundingBox();
     const p2box = p2.getBoundingBox();
     const initspeed = 50;
@@ -30,7 +30,7 @@ const checkTouchEnemy = (p1, p2, enemies, cvleft, cvright) => {
             else $("#p1shield").text(0)
 
             setTimeout(() => {
-                enemy.setXY(Math.random() * (cvright - cvleft) + cvleft, 200*(index+1))
+                enemy.setXY(Math.random() * (cvright - cvleft) + cvleft, enemy_y_range[index] - 30)
                 enemy.exist = true
             }, 3000);
 
@@ -49,7 +49,7 @@ const checkTouchEnemy = (p1, p2, enemies, cvleft, cvright) => {
             else $("#p2shield").text(0)
 
             setTimeout(() => {
-                enemy.setXY(Math.random() * (cvright - cvleft) + cvleft, 200*(index+1))
+                enemy.setXY(Math.random() * (cvright - cvleft) + cvleft, enemy_y_range[index] - 30)
                 enemy.exist = true
             }, 3000);
 

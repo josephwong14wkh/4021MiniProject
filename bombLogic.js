@@ -1,13 +1,13 @@
-const dropBomb = (bombs, yarr, now, cvleft, cvright) => {
+const dropBomb = (bombs, bomb_y_range, now, cvleft, cvright) => {
     bombs.forEach((bomb, index) => {
         let { x, y } = bomb.getXY();
 
-        if (y <= parseInt(yarr[index])) {
+        if (y <= parseInt(bomb_y_range[index] - 30)) {
             bomb.setBomb("idleBomb");
             bomb.setXY(x, y+1)
         }
 
-        if (y == parseInt(yarr[index])) {
+        if (y == parseInt(bomb_y_range[index] - 30)) {
             bomb.setBomb("tickingBomb");
         }
 
@@ -20,7 +20,7 @@ const dropBomb = (bombs, yarr, now, cvleft, cvright) => {
     });
 }
 
-const checkTouchBomb = (p1, p2, bombs, yarr, cvright, cvleft) => {
+const checkTouchBomb = (p1, p2, bombs, bomb_y_range, cvright, cvleft) => {
     const p1box = p1.getBoundingBox();
     const p2box = p2.getBoundingBox();
     const initspeed = 50;
@@ -29,7 +29,7 @@ const checkTouchBomb = (p1, p2, bombs, yarr, cvright, cvleft) => {
     bombs.forEach((bomb, index) => {
         let { x, y } = bomb.getXY();
             
-        if (p1box.isPointInBox(x, y) && y-1 == parseInt(yarr[index])) {
+        if (p1box.isPointInBox(x, y) && y-1 == parseInt(bomb_y_range[index] - 30)) {
             bomb.setBomb("explode");
 
             if ($("#p1shield").text() == "0") p1.changeSpeed(slowdown);
@@ -42,11 +42,11 @@ const checkTouchBomb = (p1, p2, bombs, yarr, cvright, cvleft) => {
             setTimeout(() => {
                 p1.changeSpeed(initspeed);
             }, 3000);
-
+            
             // updateHealth(p1);
         }
 
-        if (p2box.isPointInBox(x, y) && y-1 == parseInt(yarr[index])) {
+        if (p2box.isPointInBox(x, y) && y-1 == parseInt(bomb_y_range[index]) - 30) {
             bomb.setBomb("explode");
 
             if ($("#p2shield").text() == "0") p2.changeSpeed(slowdown);

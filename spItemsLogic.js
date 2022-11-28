@@ -1,4 +1,4 @@
-const chekcTouchSPItem = (p1, p2, shields, boots, cvtop, cvleft, cvbottom, cvright) => {
+const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, cvleft, cvright) => {
     const p1box = p1.getBoundingBox();
     const p2box = p2.getBoundingBox();
 
@@ -10,7 +10,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, cvtop, cvleft, cvbottom, cvrig
             $("#p1shield").text(1);
             shield.setXY(-1000, -1000)
             setTimeout(() => {
-                shield.setXY(Math.random() * (cvright - cvleft) + cvleft, Math.random() * (cvbottom - cvtop) + cvtop)
+                shield.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)] - 30)
             }, 10000);
         }
 
@@ -18,7 +18,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, cvtop, cvleft, cvbottom, cvrig
             $("#p2shield").text(1)
             shield.setXY(-1000, -1000)
             setTimeout(() => {
-                shield.setXY(Math.random() * (cvright - cvleft) + cvleft, Math.random() * (cvbottom - cvtop) + cvtop)
+                shield.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)] - 30)
             }, 10000);
         }
     });
@@ -34,7 +34,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, cvtop, cvleft, cvbottom, cvrig
             }, 3000);
             boot.setXY(-1000, -1000)
             setTimeout(() => {
-                boot.setXY(Math.random() * (cvright - cvleft) + cvleft, Math.random() * (cvbottom - cvtop) + cvtop)
+                boot.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)] - 30)
             }, 10000);
         }
 
@@ -45,7 +45,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, cvtop, cvleft, cvbottom, cvrig
             }, 3000);
             boot.setXY(-1000, -1000)
             setTimeout(() => {
-                boot.setXY(Math.random() * (cvright - cvleft) + cvleft, Math.random() * (cvbottom - cvtop) + cvtop)
+                boot.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)] - 30)
             }, 10000);
         }
     });
