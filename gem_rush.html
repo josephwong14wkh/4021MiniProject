@@ -103,61 +103,71 @@
         const cv = $("canvas").get(0);
         const context = cv.getContext("2d");
 
-        /* Create the sounds */
+        /* Sounds effect */
         const sounds = {
             background: new Audio("background.mp3"),
             collect: new Audio("collect.mp3"),
             gameover: new Audio("gameover.mp3")
         };
 
-        const totalGameTime = 20;   // Total game time in seconds
-        const gemMaxAge = 3000;     // The maximum age of the gems in milliseconds
+        /* Global variable */
+        const totalGameTime = 210;   // Total game time in seconds
         let gameStartTime = 0;      // The timestamp when the game starts
-        let collectedGems = 0;      // The number of gems collected in the game
+        const vertical_total = 7;       // Total number of vertical stairs
+        const horizontal_total = 5;     // Total number of horizontal stairs
 
         /* Create the game area */
-        const gameArea = BoundingBox(context, 165, 60, 420, 800);
+        const gameArea = BoundingBox(context, 110, 100, 700, 1400);   // Area that the player allowed to move
+
         const corners = gameArea.getPoints();
 
         /* Create the sprites in the game */
-        const player = Player(context, 427, 240, gameArea); // The player
-        const gem = Gem(context, 427, 350, "green");        // The gem
-        const fires = [Fire(context, corners.topLeft[0], corners.topLeft[1]),
-                       Fire(context, corners.topRight[0], corners.topRight[1]),
-                       Fire(context, corners.bottomLeft[0], corners.bottomLeft[1]),
-                       Fire(context, corners.bottomRight[0], corners.bottomRight[1]),]
+        const player = Player(context, 100, 685, gameArea); // The player
+        // another initial position: (1400, 650)
         
-        vertical_all_x = [200, 200, 200, 200, 200, 200, 200, 200, 200,
-                 400, 400, 400, 400, 400, 400, 400, 400, 400, 
-                 600, 600, 600, 600, 600, 600, 600, 600, 600,
-                 800, 800, 800, 800, 800, 800, 800, 800, 800,
-                 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
-                 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 
-                 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400];
+        /*vertical_all_x = [200, 200, 200, 200, 200, 200, 200, 200, 200,
+                          400, 400, 400, 400, 400, 400, 400, 400, 400, 
+                          600, 600, 600, 600, 600, 600, 600, 600, 600,
+                          800, 800, 800, 800, 800, 800, 800, 800, 800,
+                          1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
+                          1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 
+                          1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400
+                         ];
+
         vertical_all_y = [90, 170, 250, 330, 410, 490, 570, 650, 730, 
-                 90, 170, 250, 330, 410, 490, 570, 650, 730,
-                 90, 170, 250, 330, 410, 490, 570, 650, 730,
-                 90, 170, 250, 330, 410, 490, 570, 650, 730,
-                 90, 170, 250, 330, 410, 490, 570, 650, 730,
-                 90, 170, 250, 330, 410, 490, 570, 650, 730,
-                 90, 170, 250, 330, 410, 490, 570, 650, 730]
+                          90, 170, 250, 330, 410, 490, 570, 650, 730,
+                          90, 170, 250, 330, 410, 490, 570, 650, 730,
+                          90, 170, 250, 330, 410, 490, 570, 650, 730,
+                          90, 170, 250, 330, 410, 490, 570, 650, 730,
+                          90, 170, 250, 330, 410, 490, 570, 650, 730,
+                          90, 170, 250, 330, 410, 490, 570, 650, 730
+                         ];
 
         horizontal_all_x = [90, 170, 250, 330, 410, 490, 570, 650, 730, 810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450,  
-        90, 170, 250, 330, 410, 490, 570, 650, 730, 810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450, 
-        90, 170, 250, 330, 410, 490, 570, 650, 730, 810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450]
+                            90, 170, 250, 330, 410, 490, 570, 650, 730, 810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450, 
+                            90, 170, 250, 330, 410, 490, 570, 650, 730, 810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450,
+                            90, 170, 250, 330, 410, 490, 570, 650, 730, 810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450
+                           ];
         
         horizontal_all_y = [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200,
-                400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 
-                600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600];
+                            400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400,
+                            500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 
+                            700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 
+                           ];*/
 
-        vertical_total = 63;
-        horizontal_total = 54;
+        /* All the stairs */
+        vertical_all_x = [200, 400, 600, 800, 1000, 1200, 1400];
+        vertical_all_y = [365, 365, 365, 365, 365, 365, 365];
+        horizontal_all_x = [750, 750, 750, 750, 750];
+        horizontal_all_y = [150, 300, 400, 550, 700];
+
+        /* Get the stair objects*/
         const vertical_all_stairs = All_Stairs(context, vertical_all_x, vertical_all_y, vertical_total, "vertical");
         const vertical_stairs = vertical_all_stairs.getStairs();
+
         const horizontal_all_stairs = All_Stairs(context, horizontal_all_x, horizontal_all_y, horizontal_total, "horizontal");
         const horizontal_stairs = horizontal_all_stairs.getStairs();
-        //const horizontal_stairs = all_stairs.getStairs();
-        //const ss = Stair(context, 30, 30, "green");
+
         /* The main processing of the game */
         function doFrame(now) {
             sounds.background.play();
@@ -168,8 +178,6 @@
             const timeRemaining = Math.ceil((totalGameTime * 1000 - gameTimeSoFar) / 1000);
             $("#time-remaining").text(timeRemaining);
 
-
-            /* TODO */
             /* Handle the game over situation here */
             if (timeRemaining <= 0){
                 sounds.background.pause();
@@ -179,14 +187,7 @@
                 return
             }
             
-
-            /* Update the sprites (only update the information of gem and player)*/
-            gem.update(now);  // sprite
-            player.update(now); // speed, (x, y) position, sprite
-            for (let i = 0; i < fires.length; i++){
-                fire = fires[i];
-                fire.update(now);
-            }
+            /* Update the sprites*/
             for (let j=0; j<vertical_total; j++){
                 vertical_stairs[j].update(now);
             }
@@ -195,34 +196,76 @@
                 horizontal_stairs[j].update(now);
             }
 
-
-            /* TODO */
-            /* Randomize the gem and collect the gem here */
-            if (gem.getAge(now) > gemMaxAge){
-                gem.randomize(gameArea);
+            player.update(now);
+            
+            /*Handle player control*/
+            player_box = player.getBoundingBox();
+            const {x_center, y_center} = player_box.getCenter();
+            let at_intersection = false;  // Check whether player is at the intersection
+            console.log(x_center, y_center);
+            for (let j=0; j<vertical_total; j++){
+                const vert_stair_box = vertical_stairs[j].getBoundingBox();
+                for (let k=0; k<horizontal_total; k++){
+                    const hor_stair_box = horizontal_stairs[k].getBoundingBox();
+                    if (hor_stair_box.isPointInBox(x_center, y_center) && vert_stair_box.isPointInBox(x_center, y_center)){
+                        // Change the keydown event
+                        // Player can go left, right, up and down
+                        $(document).off("keydown");        
+                        $(document).on("keydown", function(event) {
+                            switch (event.keyCode) {
+                                case 16: player.furtherSpeedUp(); break; // Shift
+                                case 32: player.speedUp(); break; // Space
+                                case 37: player.move(1); break;  // Left
+                                case 38: player.move(2); break;  // Up
+                                case 39: player.move(3); break;  // Right
+                                case 40: player.move(4); break;  // Down
+                            }
+                        });
+                        at_intersection = true;
+                        break;
+                    }
+                }    
+                if (at_intersection){
+                    break;
+                }
             }
 
-            const {x, y} = gem.getXY();
-            const box = player.getBoundingBox();
-
-            if (box.isPointInBox(x, y)){
-                sounds.collect.pause();
-                sounds.collect.currentTime = 0;
-                collectedGems++;
-                gem.randomize(gameArea);
-                sounds.collect.play();
+            if (!at_intersection){
+                for (let j=0; j<vertical_total; j++){
+                    const vert_stair_box = vertical_stairs[j].getBoundingBox();
+                    if (vert_stair_box.isPointInBox(x_center, y_center)){
+                        // Change the keydown event
+                        // Player can only go up and down
+                        $(document).off("keydown");
+                        $(document).on("keydown", function(event) {
+                            switch (event.keyCode) {
+                                case 16: player.furtherSpeedUp(); break; // Shift
+                                case 32: player.speedUp(); break; // Space
+                                case 38: player.move(2); break;  // Up
+                                case 40: player.move(4); break;  // Down
+                            }
+                        });
+                        break;
+                    }else{
+                        // Change the keydown event
+                        // Player can only go left and right
+                        $(document).off("keydown");
+                        $(document).on("keydown", function(event) {
+                            switch (event.keyCode) {
+                                case 16: player.furtherSpeedUp(); break; // Shift
+                                case 32: player.speedUp(); break; // Space
+                                case 37: player.move(1); break;  // Left
+                                case 39: player.move(3); break;  // Right
+                            }
+                        });
+                    }
+                }
             }
-            // all the information of player and gem is already updated
+            
             /* Clear the screen */
             context.clearRect(0, 0, cv.width, cv.height);
 
-            /* Draw the sprites (draw the gem and player based on the updated information)*/
-            gem.draw();
-            player.draw();  
-            for (let i = 0; i < fires.length; i++){
-                fire = fires[i];
-                fire.draw();
-            }
+            /* Draw the sprites*/
             for (let j=0; j<vertical_total; j++){
                 vertical_stairs[j].draw();
             }
@@ -231,6 +274,7 @@
                 horizontal_stairs[j].draw();
             }
 
+            player.draw();  
             /* Process the next frame */
             requestAnimationFrame(doFrame);
         }
@@ -246,12 +290,12 @@
                 /* TODO */
                 /* Handle the key down */
                 switch (event.keyCode) {
-                    case 16: player.furtherSpeedUp(); break;
-                    case 32: player.speedUp(); break;
-                    case 37: player.move(1); break;
-                    case 38: player.move(2); break;
-                    case 39: player.move(3); break;
-                    case 40: player.move(4); break;
+                    case 16: player.furtherSpeedUp(); break; // shift
+                    case 32: player.speedUp(); break; // space
+                    case 37: player.move(1); break;  // left
+                    //case 38: player.move(2); break;  // up
+                    case 39: player.move(3); break;  // right
+                    //case 40: player.move(4); break;  // down
                 }
 
             });
@@ -273,8 +317,6 @@
 
 
             });
-
-            gem.randomize(gameArea);
             /* Start the game */
             requestAnimationFrame(doFrame);
         });
