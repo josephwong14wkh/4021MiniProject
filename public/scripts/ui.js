@@ -163,6 +163,16 @@ const OnlineUsersPanel = (function() {
 					.append(UI.getUserDisplay(user))
 			);
 		}
+
+        // set up the pair up click
+        $("#username-" + user.username).on('click', ()=> {
+            const response = confirm("Are you sure you want to pair up with " + user.name + "?");
+
+            console.log(response);
+            if (response){
+                game_fuc();
+            }
+        });
 	};
 
     // This function removes a user from the panel
@@ -175,6 +185,8 @@ const OnlineUsersPanel = (function() {
 		// Remove the user
 		if (userDiv.length > 0) userDiv.remove();
 	};
+
+
 
     return { initialize, update, addUser, removeUser };
 })();
@@ -189,8 +201,10 @@ const ChatPanel = (function() {
 		chatArea = $("#chat-area");
 
         text = "Your goal is to collect the star in top level of the map. \
-                You can also pick up different speical objects in the game \
-                Avoid the bomb which will damage your health bar! "
+                You can also pick up different speical objects in the game. <br><br>\
+                Bomb will damage your health bar! <br> Heart will heal your health! <br>\
+                Shoes will speedup your character! <br> Sheild could protect you from a damage!" 
+
         chatArea.append(
 			$("<div class='chat-instruction-container'></div>")
             .append($("<div class='chat-instruction-title'>" + "Game Instructions" + "<br><br></div>"))
@@ -198,7 +212,6 @@ const ChatPanel = (function() {
 
 
         // begin button 
-        
         $("#start_game_button").on("click", ()=> {
             SignInForm.show(); 
         });

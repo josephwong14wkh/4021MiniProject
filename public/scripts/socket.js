@@ -84,5 +84,12 @@ const Socket = (function() {
         }
     };
 
+    // This function send a pair up request to another user
+    // const pairUser= function(username) {
+    //     if (socket && socket.connected) {
+    //         socket.emit("pair user", username);
+    //     }
+    // };
+
     return { getSocket, connect, disconnect, postMessage };
 })();

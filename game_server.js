@@ -196,12 +196,17 @@ io.on("connection", (socket) => {
     });
 
 
-    // Improvement 
-    socket.on("typing", () => {
-        io.emit("typing_user", JSON.stringify(socket.request.session.user));
-    });
-});
+    // // Improvement 
+    // socket.on("typing", () => {
+    //     io.emit("typing_user", JSON.stringify(socket.request.session.user));
+    // });
 
+
+    // // Improvement 
+    // socket.on("pair user", () => {
+    //     io.emit("typing_user", JSON.stringify(socket.request.session.user));
+    // });
+});
 
 
 // Use the session in the Socket.I0 server
