@@ -21,7 +21,7 @@
         height: 730px;
     }
     canvas {
-        background: url(background_image.png);
+        background: url(image/background_image.png);
         background-size: cover;
     }
     #game-start, #game-over {
@@ -171,13 +171,13 @@
 
             /* TODO */
             /* Handle the game over situation here */
-            if (timeRemaining <= 0){
-                sounds.background.pause();
-                sounds.gameover.play();
-                $("#final-gems").text(collectedGems);
-                $("#game-over").show();
-                return
-            }
+            // if (timeRemaining <= 0){
+            //     sounds.background.pause();
+            //     sounds.gameover.play();
+            //     $("#final-gems").text(collectedGems);
+            //     $("#game-over").show();
+            //     return
+            // }
             
 
             /* Update the sprites (only update the information of gem and player)*/

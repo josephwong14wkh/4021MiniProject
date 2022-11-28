@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Collect the Gems!</title>
+    
+    <!-- Use to avoid favicon.ico 404 -->
+    <link rel="shortcut icon" href="#" /> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Press Start 2P", sans-serif;
+        }
+
+        #game-container {
+            position: relative;
+        }
+
+        canvas,#counter, #game-start, #game-over {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 1500px;
+        }
+
+        canvas, #game-start, #game-over {
+            border: 1px solid gray;
+            width: 1500px;
+            height: 730px;
+        }
+
+        canvas {
+            background: url(image/background_image.png);
+            background-size: cover;
+        }
+
+        #game-start, #game-over {
+            background: rgba(1, 1, 1, 0.8);
+        }
+
+        #counter text {
+            font-size: 130%;
+            fill: white;
+            stroke: black;
+            stroke-width: 1px;
+        }
+
+        #game-start text {
+            font-size: 150%;
+            fill: white;
+            text-anchor: middle;
+        }
+
+        #game-start #game-title {
+            font-size: 400%;
+            fill: url(#title-fill);
+            stroke: black;
+        }
+
+        #game-over text {
+            font-size: 120%;
+            fill: url(#game-over-fill);
+            text-anchor: middle;
+        }
+
+        /* #player-rank text {
+            font-size: 150%;
+            fill: white;
+            text-anchor: middle;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas width="1500px" height="730px"></canvas>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="counter">
+            <text x="10" y="35">
+                TIME:<tspan id="time-remaining">180</tspan>
+            </text>
+
+            <text x="10" y="75">P1</text>
+            <image href="mdn_logo_only_color.png" x="10", y="90"height="25" width="25" />
+            <text x="50" y="115"> x <tspan id="p1shield">0</tspan></text>
+
+            <text x="1450" y="75">P2</text>
+            <image href="mdn_logo_only_color.png" x="1390", y="90"height="25" width="25" />
+            <text x="1430" y="115"> x <tspan id="p2shield">0</tspan></text>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="game-start" >
+            <defs>
+                <linearGradient id="title-fill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0.2" stop-color="red" />
+                    <stop offset="0.4" stop-color="yellow" />
+                    <stop offset="0.6" stop-color="green" />
+                    <stop offset="0.8" stop-color="purple" />
+                </linearGradient>
+            </defs>
+            <text id="game-title" x="50%" y="45%">GEM RUSH!</text>
+            <text x="50%" y="60%">Click here to start the game</text>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="game-over" style="display: none">
+            <defs>
+                <linearGradient id="game-over-fill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="red" />
+                    <stop offset="0.5" stop-color="yellow" />
+                    <stop offset="1" stop-color="red" />
+                </linearGradient>
+            </defs>
+            <text x="50%" y="50%">
+                Time's up! You have collected
+                <tspan id="final-gems">0</tspan>
+                gem(s).
+            </text>
+        </svg>
+
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" id="player-stat">
+
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="player-rank" display="show">
+            <text x="50%" y="50%">
+                <tspan>Top 5 Players</tspan>
+            </text>
+        </svg> -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!-- <script src="createHealthBar.js"></script> -->
+    <script src="bounding_box.js"></script>
+    <script src="sprite.js"></script>
+    <script src="player.js"></script>
+    <script src="objects/bomb.js"></script>
+    <script src="objects/boot.js"></script>
+    <script src="objects/enemy.js"></script>
+    <script src="objects/shield.js"></script>
+    <script src="objects/hearts.js"></script>
+    <script src="bombLogic.js"></script>
+    <script src="enemyLogic.js"></script>
+    <script src="spItemsLogic.js"></script>
+    <script src="heartLogic.js"></script>
+    <script src="playerControl.js"></script>
+    <script src="all_stairs.js"></script>
+    <script src="stair.js"></script>
+    <script src="main.js"></script>
+    
+    
+</body>
+
+</html>

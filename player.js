@@ -40,7 +40,7 @@ const Player = function(ctx, x, y, gameArea) {
     sprite.setSequence(sequences.idleDown)
           .setScale(1.6)
           .setShadowScale({ x: 0.75, y: 0.20 })
-          .useSheet("mario.png");
+          .useSheet("image/mario.png");
 
     // This is the moving direction, which can be a number from 0 to 4:
     // - `0` - not moving
@@ -50,7 +50,7 @@ const Player = function(ctx, x, y, gameArea) {
     // - `4` - moving down
     let direction = 0;
     // This is the moving speed (pixels per second) of the player
-    let speed = 150;
+    let speed = 50;
 
     // This function sets the player's moving direction.
     // - `dir` - the moving direction (1: Left, 2: Up, 3: Right, 4: Down)
@@ -93,6 +93,10 @@ const Player = function(ctx, x, y, gameArea) {
     const slowDown = function() {
         speed = 150;
     };
+    // Change speed according to different event
+    const changeSpeed = function(speeds) {
+        speed = speeds;
+    }
 
     // This function updates the player depending on his movement.
     // - `time` - The timestamp when this function is called
@@ -125,6 +129,7 @@ const Player = function(ctx, x, y, gameArea) {
         speedUp: speedUp,
         furtherSpeedUp: furtherSpeedUp,
         slowDown: slowDown,
+        changeSpeed: changeSpeed,
         getBoundingBox: sprite.getBoundingBox,
         draw: sprite.draw,
         update: update
