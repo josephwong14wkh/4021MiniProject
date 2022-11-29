@@ -2,7 +2,16 @@ $(document).ready(function () {
     const cv = $("canvas").get(0);
     const context = cv.getContext("2d");
 
-    const sounds = {};
+    const sounds = {
+        background: new Audio("soundtrack/background.mp3"),
+        gameover: new Audio("soundtrack/gameover.mp3"),
+        explosion: new Audio("soundtrack/explosion.mp3"),
+        enemyhit: new Audio("soundtrack/enemyhit.mp3"),
+        getshield: new Audio("soundtrack/getshield.mp3"),
+        getboot: new Audio("soundtrack/getboot.mp3"),
+        getheart: new Audio("soundtrack/getheart.mp3"),
+    
+    };
 
     const totalgametime = 180;
     let gamestarttime = 0;
@@ -32,36 +41,27 @@ $(document).ready(function () {
 
     //Create sprites
     //Create P1 & P2 from the two side of canvas
-    const player1 = Player1(context, left, 685, gamearea);//left, bottom
-    const player2 = Player2(context, right, 685, gamearea);//right, bottom
-
-    //Create health bar
-    // const healthBarWidth = 200;
-    // const healthBarHeight = 30;
-    // const x = cv.width / 2 - healthBarWidth / 2;
-    // const y = cv.height / 2 - healthBarHeight / 2;
-
-    // const healthBar = new HealthBar(70, 45, 100, 30, 100, "green");
+    const player1 = Player1(context, left, bottom, gamearea);
+    const player2 = Player2(context, right, bottom, gamearea);
 
     //Create items
-    const maxbomb = 12, maxenemy = 6, maxheart = 3, maxspitem = 2;
+    const maxbomb = 20, maxenemy = 8, maxheart = 3, maxspitem = 2;
     const bombs = [], enemies = [], hearts = [], shields = [], boots = [];
     
-    const enemy_y_range = [200, 200, 400, 400, 600, 600];
-    const bomb_y_range = [200, 200, 200, 400, 400, 400, 600, 600, 600, 730, 730, 730];
-    const heart_y_range = [200, 400, 600, 730]
-    const spitem_y_range = [200, 400, 600, 730];
+    const enemy_y_range = [150, 150, 300, 300, 400, 400, 550, 550];
+    const bomb_y_range = [150, 300, 400, 550, 700, 150, 300, 400, 550, 700, 150, 300, 400, 550, 700, 150, 300, 400, 550, 700];
+    const heart_y_range = [150, 300, 400, 550, 700];
+    const spitem_y_range = [150, 300, 400, 550, 700];
 
-    for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, -100))
-    for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i] - 30));
-    for (let i=0; i<maxheart; i++) hearts.push(Heart(context, Math.random() * (right - left) + left, heart_y_range[Math.floor(Math.random() * 4)] - 30));
-    for (let i=0; i<maxspitem; i++) shields.push(Shield(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)] - 30));
-    for (let i=0; i<maxspitem; i++) boots.push(Boot(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)] - 30));
+    for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, Math.floor(Math.random() * -1000) - 100))
+    for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i]));
+    for (let i=0; i<maxheart; i++) hearts.push(Heart(context, Math.random() * (right - left) + left, heart_y_range[Math.floor(Math.random() * 4)]));
+    for (let i=0; i<maxspitem; i++) shields.push(Shield(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)]));
+    for (let i=0; i<maxspitem; i++) boots.push(Boot(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)]));
 
     function doFrame(now) {
 
-        
-
+        sounds.background.play();
         //Handle game start and gameover
         if (gamestarttime == 0) gamestarttime = now;
 
@@ -73,11 +73,26 @@ $(document).ready(function () {
         //Gameover
         if (timeRemaining == 0) {
             //Show gameover page
+            sounds.background.pause();
+            sounds.gameover.play();
             $('#game-over').show();
-            // if ()
             return 0;
         }
-        
+        if ($("#p1health").val() == 0) {
+            sounds.background.pause();
+            sounds.gameover.play();
+            $('#game-over').show();
+            $("#winner").text("P2");
+            return 0;
+        }
+        if ($("#p2health").val() == 0 ){
+            sounds.background.pause();
+            sounds.gameover.play();
+            $('#game-over').show();
+            $("#winner").text("P1");
+            return 0;
+        }
+
         //Update objects
         //Refer to lab4 sprite.js
         vertical_stairs.forEach(stair => {stair.update(now)});
@@ -96,21 +111,13 @@ $(document).ready(function () {
         enemies.forEach(shield => {shield.update(now);});
         boots.forEach(boot => {boot.update(now);});
 
-        //Generate health bar
-        // healthBar.show(context);
-        // csv.onclick = function() {
-        //     health -= 10;
-        //     healthBar.updateHealth(health);
-        // };
-
         //Generate object
-        // for (let i=0; i<maxbomb; i++) yarr.push(Math.random() * (bottom - top) + top);
         dropBomb(bombs, bomb_y_range, now, left, right);
-        checkTouchBomb(player1, player2, bombs, bomb_y_range, left, right)
+        checkTouchBomb(player1, player2, bombs, left, right, sounds)
         enemyMove(enemies, left, right);
-        checkTouchEnemy(player1, player2, enemies, enemy_y_range, left, right)
-        chekcTouchSPItem(player1, player2, shields, boots, spitem_y_range, left, right)
-        checkTouchHeart(player1, player2, hearts, heart_y_range, left, right)
+        checkTouchEnemy(player1, player2, enemies, enemy_y_range, left, right, sounds)
+        chekcTouchSPItem(player1, player2, shields, boots, spitem_y_range, left, right, sounds)
+        checkTouchHeart(player1, player2, hearts, heart_y_range, left, right, sounds)
 
         //Clear the screen
         context.clearRect(0, 0, cv.width, cv.height);

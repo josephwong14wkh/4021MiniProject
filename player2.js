@@ -97,6 +97,9 @@ const Player2 = function(ctx, x, y, gameArea) {
     const changeSpeed = function(speeds) {
         speed = speeds;
     }
+    const getSpeed = function() {
+        return speed;
+    }
 
     // This function updates the player depending on his movement.
     // - `time` - The timestamp when this function is called
@@ -132,6 +135,7 @@ const Player2 = function(ctx, x, y, gameArea) {
         changeSpeed: changeSpeed,
         getBoundingBox: sprite.getBoundingBox,
         draw: sprite.draw,
-        update: update
+        update: update,
+        getSpeed: getSpeed
     };
 };
