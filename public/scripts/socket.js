@@ -58,7 +58,8 @@ const Socket = (function() {
         socket.on("start game", startgame);
 
         // recieve the statistics data from server 
-        socket.on("receive", (data) => {
+        socket.on("get stat", (data) => {
+            console.log("test");
             console.log(data);
         });
     };
@@ -89,12 +90,12 @@ const Socket = (function() {
         }
     };
 
-    // This function send statistics data to sever
-    const send_stat = function(data) {
+    // This function request statistics data to sever
+    const get_stat = function() {
         if (socket && socket.connected) {
-            socket.emit("send stat", data);
+            socket.emit("send stat");
         }
     }
     
-    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, send_stat};
+    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, get_stat};
 })();

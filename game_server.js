@@ -207,10 +207,11 @@ io.on("connection", (socket) => {
     });
 
     // Server send the statistics data to both cilents
-    socket.on("send stat", () => {
+    socket.on("get stat", () => {
         // js obj
-        // data =  JSON.parse(fs.readFileSync("data/game.json"))
-        io.emit("receive stat", fs.readFileSync("data/game.json"));
+        data =  JSON.parse(fs.readFileSync("data/game.json"));
+        // console.log("test1" + JSON.stringify(data));
+        io.emit("get stat", JSON.stringify(data));
     });
 });
 
