@@ -208,7 +208,7 @@
                 const vert_stair_box = vertical_stairs[j].getBoundingBox();
                 for (let k=0; k<horizontal_total; k++){
                     const hor_stair_box = horizontal_stairs[k].getBoundingBox();
-                    if (hor_stair_box.isPointInBox(x_center, y_center) && vert_stair_box.isPointInBox(x_center, y_center)){
+                    if (hor_stair_box.isPointInBox(x_center, (y_center+30)) && vert_stair_box.isPointInBox(x_center, y_center)){
                         // Change the keydown event
                         // Player can go left, right, up and down
                         $(document).off("keydown");        
