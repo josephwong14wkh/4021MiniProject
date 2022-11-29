@@ -146,10 +146,16 @@ const OnlineUsersPanel = (function() {
                 );
                 // Set click icon pair up event
                 $("#username-" + username).on('click', ()=> {
-                    window.focus();
-                    const response = confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
-                    if (response)
-                        Socket.pairUser(currentUser.name ,onlineUsers[username].name);
+
+                    (async () => {
+                        window.focus();
+                        var response = await confirm("Are you sure you want to pair up with " + user.name + "?");
+                        curr_user = Authentication.getUser();
+        
+                        if (response) 
+                            Socket.pairUser(curr_user.name ,user.name);
+                        // console.log('Do you want ', response);
+                    })();    
                 });
             }
         }
@@ -172,15 +178,16 @@ const OnlineUsersPanel = (function() {
 
         // set up the pair up click
         $("#username-" + user.username).on('click', ()=> {
-            window.focus();
-            const response = confirm("Are you sure you want to pair up with " + user.name + "?");
+           
+            (async () => {
+                window.focus();
+                var response = await confirm("Are you sure you want to pair up with " + user.name + "?");
+                curr_user = Authentication.getUser();
 
-            curr_user = Authentication.getUser();
-
-            // console.log(response);
-            if (response){
-                Socket.pairUser(curr_user.name ,user.name);
-            }
+                if (response) 
+                    Socket.pairUser(curr_user.name ,user.name);
+                // console.log('Do you want ', response);
+            })();    
         });
 	};
 

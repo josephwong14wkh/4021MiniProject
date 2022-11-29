@@ -56,6 +56,11 @@ const Socket = (function() {
 
         // start game 
         socket.on("start game", startgame);
+
+        // recieve the statistics data from server 
+        socket.on("receive", (data) => {
+            console.log(data);
+        });
     };
 
     // This function disconnects the socket from the server

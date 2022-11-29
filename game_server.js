@@ -196,16 +196,21 @@ io.on("connection", (socket) => {
         io.emit("add message", JSON.stringify(new_message));
     });
 
+    // Server listen to browser to any pair request
     socket.on("pair user", (sender, recevier) => {
         io.emit("accept pair", sender, recevier);
     });
 
+    // Server event to notify the browsers to start game at the same time
     socket.on("start game", () => {
         io.emit("start game");
     });
 
-    socket.on("send stat", (data) => {
-        console.log(data);
+    // Server send the statistics data to both cilents
+    socket.on("send stat", () => {
+        // js obj
+        // data =  JSON.parse(fs.readFileSync("data/game.json"))
+        io.emit("receive stat", fs.readFileSync("data/game.json"));
     });
 });
 
