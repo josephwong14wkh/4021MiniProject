@@ -146,6 +146,7 @@ const OnlineUsersPanel = (function() {
                 );
                 // Set click icon pair up event
                 $("#username-" + username).on('click', ()=> {
+                    window.focus();
                     const response = confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
                     if (response)
                         Socket.pairUser(currentUser.name ,onlineUsers[username].name);
@@ -171,6 +172,7 @@ const OnlineUsersPanel = (function() {
 
         // set up the pair up click
         $("#username-" + user.username).on('click', ()=> {
+            window.focus();
             const response = confirm("Are you sure you want to pair up with " + user.name + "?");
 
             curr_user = Authentication.getUser();
