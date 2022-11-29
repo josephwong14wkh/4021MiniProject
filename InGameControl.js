@@ -4,7 +4,6 @@ const playerStatus = function(player, vertical_stairs, horizontal_stairs, vertic
     const {x_center, y_center} = player_box.getCenter();
     let at_intersection = false;  // Check whether player is at the intersection
     let at_vertical = false;
-
     
     for (let j=0; j<vertical_total; j++){
         const vert_stair_box = vertical_stairs[j].getBoundingBox();
