@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     const sounds = {};
 
-    const totalgametime = 10;
+    const totalgametime = 180;
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp

@@ -7,7 +7,7 @@ const Bell = function(ctx, x, y) {
 
     // The sprite object is configured for the gem sprite here.
     sprite.setSequence(sequence)
-          .setScale(3)
+          .setScale(3.5)
           .setShadowScale({ x: 0.75, y: 0.2 })
           .useSheet("image/object_sprites.png");
 
