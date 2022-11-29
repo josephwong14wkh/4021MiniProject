@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     const sounds = {};
 
-    const totalgametime = 180;
+    const totalgametime = 10;
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp
@@ -51,6 +51,7 @@ $(document).ready(function () {
     const bomb_y_range = [200, 200, 200, 400, 400, 400, 600, 600, 600, 730, 730, 730];
     const heart_y_range = [200, 400, 600, 730]
     const spitem_y_range = [200, 400, 600, 730];
+    const bell = Bell(context, 750, 50);
 
     for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, -100))
     for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i] - 30));
@@ -71,10 +72,23 @@ $(document).ready(function () {
         $("#time-remaining").text(timeRemaining);
 
         //Gameover
-        if (timeRemaining == 0) {
-            //Show gameover page
+        const {x, y} = bell.getXY();
+        const player1_box = player1.getBoundingBox();
+        const player2_box = player2.getBoundingBox();
+        if (timeRemaining == 0){
             $('#game-over').show();
-            // if ()
+            return 0;
+        }else if (player1_box.isPointInBox(x, (y-20))){
+            win_user = "player1";
+            text = win_user + " win the game!";
+            $('#game-over text').text(text);
+            $('#game-over').show();
+            return 0;
+        }else if (player2_box.isPointInBox(x, (y-20))){
+            win_user = "player2";
+            text = win_user + " win the game!";
+            $('#game-over text').text(text);
+            $('#game-over').show();
             return 0;
         }
         
@@ -90,6 +104,7 @@ $(document).ready(function () {
         const {at_intersection2, at_vertical2} = playerStatus(player2, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer=false);
         playerControlChecking(player1, player2, at_intersection1, at_vertical1, at_intersection2, at_vertical2);
         
+        bell.update(now);
         bombs.forEach(bomb => {bomb.update(now);});
         hearts.forEach(heart => {heart.update(now);});
         shields.forEach(enemy => {enemy.update(now);});
@@ -122,6 +137,7 @@ $(document).ready(function () {
         player1.draw();
         player2.draw();
 
+        bell.draw();
         bombs.forEach(bomb => {bomb.draw();});
         hearts.forEach(heart => {heart.draw();});
         shields.forEach(enemy => {enemy.draw();});

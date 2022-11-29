@@ -49,7 +49,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 87:player1.move(2);break; // Up
                     case 68:player1.move(3);break; // Right
@@ -66,7 +70,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 87:player1.move(2);break; // Up
                     case 68:player1.move(3);break; // Right
@@ -81,7 +89,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 87:player1.move(2);break; // Up
                     case 68:player1.move(3);break; // Right
@@ -96,7 +108,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 87:player1.move(2);break; // Up
                     case 83:player1.move(4);break; // Down
 
@@ -111,7 +127,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 87:player1.move(2);break; // Up
                     case 83:player1.move(4);break; // Down
 
@@ -124,7 +144,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 87:player1.move(2);break; // Up
                     case 83:player1.move(4);break; // Down
 
@@ -137,7 +161,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 68:player1.move(3);break; // Right
 
@@ -152,7 +180,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 68:player1.move(3);break; // Right
 
@@ -165,7 +197,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 68:player1.move(3);break; // Right
 

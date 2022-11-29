@@ -59,7 +59,7 @@
         }
 
         #game-over text {
-            font-size: 120%;
+            font-size: 180%;
             fill: url(#game-over-fill);
             text-anchor: middle;
         }
@@ -111,10 +111,8 @@
                     <stop offset="1" stop-color="red" />
                 </linearGradient>
             </defs>
-            <text x="50%" y="50%">
-                Time's up! You have collected
-                <tspan id="final-gems">0</tspan>
-                gem(s).
+            <text id="text", x="50%" y="50%">
+                Time's up! Tie!
             </text>
         </svg>
 
@@ -136,6 +134,7 @@
     <script src="player1.js"></script>
     <script src="player2.js"></script>
     <script src="InGameControl.js"></script>
+    <script src="objects/bell.js"></script>
     <script src="objects/bomb.js"></script>
     <script src="objects/boot.js"></script>
     <script src="objects/enemy.js"></script>
