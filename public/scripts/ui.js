@@ -149,11 +149,11 @@ const OnlineUsersPanel = (function() {
 
                     (async () => {
                         window.focus();
-                        var response = await confirm("Are you sure you want to pair up with " + user.name + "?");
+                        var response = await confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
                         curr_user = Authentication.getUser();
         
                         if (response) 
-                            Socket.pairUser(curr_user.name ,user.name);
+                            Socket.pairUser(curr_user.name ,onlineUsers[username].name);
                         // console.log('Do you want ', response);
                     })();    
                 });
