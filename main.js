@@ -3,8 +3,8 @@ $(document).ready(function () {
     const context = cv.getContext("2d");
 
     const sounds = {
-        // background: new Audio("soundtrack/background.mp3"),
-        // gameover: new Audio("soundtrack/gameover.mp3"),
+        background: new Audio("soundtrack/background.mp3"),
+        gameover: new Audio("soundtrack/gameover.mp3"),
         explosion: new Audio("soundtrack/explosion.mp3"),
         enemyhit: new Audio("soundtrack/enemyhit.mp3"),
         getshield: new Audio("soundtrack/getshield.mp3"),
@@ -45,13 +45,13 @@ $(document).ready(function () {
     const player2 = Player2(context, right, bottom, gamearea);
 
     //Create items
-    const maxbomb = 20, maxenemy = 6, maxheart = 3, maxspitem = 2;
+    const maxbomb = 20, maxenemy = 8, maxheart = 3, maxspitem = 2;
     const bombs = [], enemies = [], hearts = [], shields = [], boots = [];
     
-    const enemy_y_range = [200, 200, 400, 400, 600, 600];
-    const bomb_y_range = [200, 200, 200, 200, 200, 400, 400, 400, 400, 400, 600, 600, 600, 600, 600, 700, 700, 700, 700, 700];
-    const heart_y_range = [200, 400, 600, 700];
-    const spitem_y_range = [200, 400, 600, 700];
+    const enemy_y_range = [150, 150, 300, 300, 400, 400, 550, 550];
+    const bomb_y_range = [150, 300, 400, 550, 700, 150, 300, 400, 550, 700, 150, 300, 400, 550, 700, 150, 300, 400, 550, 700];
+    const heart_y_range = [150, 300, 400, 550, 700];
+    const spitem_y_range = [150, 300, 400, 550, 700];
 
     for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, Math.floor(Math.random() * -1000) - 100))
     for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i]));
@@ -61,6 +61,7 @@ $(document).ready(function () {
 
     function doFrame(now) {
 
+        sounds.background.play();
         //Handle game start and gameover
         if (gamestarttime == 0) gamestarttime = now;
 
@@ -72,16 +73,21 @@ $(document).ready(function () {
         //Gameover
         if (timeRemaining == 0) {
             //Show gameover page
+            sounds.background.pause();
+            sounds.gameover.play();
             $('#game-over').show();
-            // if ()
             return 0;
         }
-        if ($("#p1health").val() == 0 || player2.getBoundingBox().isPointInBox(800, 80)) {
+        if ($("#p1health").val() == 0) {
+            sounds.background.pause();
+            sounds.gameover.play();
             $('#game-over').show();
             $("#winner").text("P2");
             return 0;
         }
-        if ($("#p2health").val() == 0 || player1.getBoundingBox().isPointInBox(800, 80)){
+        if ($("#p2health").val() == 0 ){
+            sounds.background.pause();
+            sounds.gameover.play();
             $('#game-over').show();
             $("#winner").text("P1");
             return 0;
