@@ -60,15 +60,16 @@ const Socket = (function() {
         //     ChatPanel.addMessage(message);
         // });
 
-        // Imporvement
-        // Set up the typing event 
-        // socket.on("typing_user", (user) => {
-        //     user = JSON.parse(user);
-        //     // console.log(user.username+"is typing");
-        //     // console.log(Authentication.getUser());
-        //     if (Authentication.getUser().name != user.name)
-        //         ChatPanel.update_typing(user.name);
-        // });
+        // Set up the acceptance event 
+        socket.on("accept pair", (sender_name, recevier_name) => {            
+            if (Authentication.getUser().name == recevier_name) {
+                const response = confirm("Do want to pair up with " + sender_name + "?");
+                if(response)
+                    socket.emit("start game");
+            }
+        });
+
+        socket.on("start game", startgame);
     };
 
     // This function disconnects the socket from the server
@@ -84,12 +85,19 @@ const Socket = (function() {
         }
     };
 
-    // This function send a pair up request to another user
-    // const pairUser= function(username) {
-    //     if (socket && socket.connected) {
-    //         socket.emit("pair user", username);
-    //     }
-    // };
+    // This function send a pair up request to server
+    const pairUser= function(sender_name, recevier_name) {
+        if (socket && socket.connected) {
+            // console.log("send pair to" + username);
+            socket.emit("pair user", sender_name, recevier_name);
+        }
+    };
+    const startgame = function() {
+        if (socket && socket.connected) {
+            game_fuc();
+        }
+    };
 
-    return { getSocket, connect, disconnect, postMessage };
+    
+    return { getSocket, connect, disconnect, postMessage, pairUser, startgame};
 })();

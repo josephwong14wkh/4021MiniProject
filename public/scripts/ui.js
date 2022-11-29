@@ -145,6 +145,15 @@ const OnlineUsersPanel = (function() {
                     $("<div id='username-" + username + "'></div>")
                         .append(UI.getUserDisplay(onlineUsers[username]))
                 );
+                
+                // console.log("debug1: "+ currentUser.name ,onlineUsers[username].name);
+                // Set 
+                $("#username-" + username).on('click', ()=> {
+                    const response = confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
+                    if (response){
+                        Socket.pairUser(currentUser.name ,onlineUsers[username].name);
+                    }
+                });
             }
         }
     };
@@ -168,9 +177,11 @@ const OnlineUsersPanel = (function() {
         $("#username-" + user.username).on('click', ()=> {
             const response = confirm("Are you sure you want to pair up with " + user.name + "?");
 
-            console.log(response);
+            curr_user = Authentication.getUser();
+
+            // console.log(response);
             if (response){
-                game_fuc();
+                Socket.pairUser(curr_user.name ,user.name);
             }
         });
 	};

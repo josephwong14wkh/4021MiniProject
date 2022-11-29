@@ -131,6 +131,7 @@ app.get("/signout", (req, res) => {
 // Create the Socket.I0 server
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const { send } = require("process");
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
@@ -195,17 +196,13 @@ io.on("connection", (socket) => {
         io.emit("add message", JSON.stringify(new_message));
     });
 
+    socket.on("pair user", (sender, recevier) => {
+        io.emit("accept pair", sender, recevier);
+    });
 
-    // // Improvement 
-    // socket.on("typing", () => {
-    //     io.emit("typing_user", JSON.stringify(socket.request.session.user));
-    // });
-
-
-    // // Improvement 
-    // socket.on("pair user", () => {
-    //     io.emit("typing_user", JSON.stringify(socket.request.session.user));
-    // });
+    socket.on("start game", () => {
+        io.emit("start game");
+    });
 });
 
 
