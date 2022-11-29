@@ -156,10 +156,10 @@
                            ];*/
 
         /* All the stairs */
-        vertical_all_x = [200, 400, 600, 800, 1000, 1200, 1400];
-        vertical_all_y = [365, 365, 365, 365, 365, 365, 365];
-        horizontal_all_x = [750, 750, 750, 750, 750];
-        horizontal_all_y = [150, 300, 400, 550, 700];
+        const vertical_all_x = [200, 400, 600, 800, 1000, 1200, 1400];
+        const vertical_all_y = [365, 365, 365, 365, 365, 365, 365];
+        const horizontal_all_x = [750, 750, 750, 750, 750];
+        const horizontal_all_y = [150, 300, 400, 550, 700];
 
         /* Get the stair objects*/
         const vertical_all_stairs = All_Stairs(context, vertical_all_x, vertical_all_y, vertical_total, "vertical");
@@ -199,10 +199,11 @@
             player.update(now);
             
             /*Handle player control*/
+            // player, vertical_stairs, horizontal_stairs, total
             player_box = player.getBoundingBox();
             const {x_center, y_center} = player_box.getCenter();
             let at_intersection = false;  // Check whether player is at the intersection
-            console.log(x_center, y_center);
+        
             for (let j=0; j<vertical_total; j++){
                 const vert_stair_box = vertical_stairs[j].getBoundingBox();
                 for (let k=0; k<horizontal_total; k++){
@@ -212,6 +213,7 @@
                         // Player can go left, right, up and down
                         $(document).off("keydown");        
                         $(document).on("keydown", function(event) {
+                            console.log(event.keyCode);
                             switch (event.keyCode) {
                                 case 16: player.furtherSpeedUp(); break; // Shift
                                 case 32: player.speedUp(); break; // Space
