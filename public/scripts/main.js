@@ -58,11 +58,11 @@ const main = function() {
     const spitem_y_range = [150, 300, 400, 550, 700];
     const bell = Bell(context, 750, 50);
 
-    for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, -100))
-    for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i] - 30));
-    for (let i=0; i<maxheart; i++) hearts.push(Heart(context, Math.random() * (right - left) + left, heart_y_range[Math.floor(Math.random() * 4)] - 30));
-    for (let i=0; i<maxspitem; i++) shields.push(Shield(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)] - 30));
-    for (let i=0; i<maxspitem; i++) boots.push(Boot(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)] - 30));
+    for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, Math.floor(Math.random() * -1000) - 100))
+    for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i]));
+    for (let i=0; i<maxheart; i++) hearts.push(Heart(context, Math.random() * (right - left) + left, heart_y_range[Math.floor(Math.random() * 4)]));
+    for (let i=0; i<maxspitem; i++) shields.push(Shield(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)]));
+    for (let i=0; i<maxspitem; i++) boots.push(Boot(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)]));
 
     function doFrame(now) {
 
@@ -84,7 +84,7 @@ const main = function() {
             sounds.gameover.play();
             $('#game-over').show();
             return 0;
-        }else if (player1_box.isPointInBox(x, (y-20))){
+        }else if (player1_box.isPointInBox(x, (y-20)) || $("#p2health").val() == 0){
             sounds.background.pause();
             sounds.gameover.play();
             win_user = "player1";
@@ -92,7 +92,7 @@ const main = function() {
             $('#game-over text').text(text);
             $('#game-over').show();
             return 0;
-        }else if (player2_box.isPointInBox(x, (y-20))){
+        }else if (player2_box.isPointInBox(x, (y-20)) || $("#p1health").val() == 0){
             sounds.background.pause();
             sounds.gameover.play();
             win_user = "player2";
