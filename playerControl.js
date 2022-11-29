@@ -1,6 +1,7 @@
 const moving = (player1, player2) => {
     $(document).on("keydown", function (event) {
         /* Handle the key down */
+        console.log(event.keyCode);
         switch (event.keyCode) {
             case 72:{
                 $("#p1shield").text(999);
@@ -8,9 +9,9 @@ const moving = (player1, player2) => {
                 break;
             }
             case 65:player1.move(1);break;
-            case 87:player1.move(2);break;
+            //case 87:player1.move(2);break;
             case 68:player1.move(3);break;
-            case 83:player1.move(4);break;
+            //case 83:player1.move(4);break;
 
             case 222:{
                 $("#p2shield").text(999);
@@ -18,9 +19,9 @@ const moving = (player1, player2) => {
                 break;
             }
             case 37:player2.move(1);break;
-            case 38:player2.move(2);break;
+            //case 38:player2.move(2);break;
             case 39:player2.move(3);break;
-            case 40:player2.move(4);break;
+            //case 40:player2.move(4);break;
         }
     });
 }    

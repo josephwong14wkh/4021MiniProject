@@ -3,7 +3,7 @@
 // - `x` - The initial x position of the player
 // - `y` - The initial y position of the player
 // - `gameArea` - The bounding box of the game area
-const Player = function(ctx, x, y, gameArea) {
+const Player2 = function(ctx, x, y, gameArea) {
 
     // This is the sprite sequences of the player facing different directions.
     // It contains the idling sprite sequences `idleLeft`, `idleUp`, `idleRight` and `idleDown`,
@@ -11,7 +11,7 @@ const Player = function(ctx, x, y, gameArea) {
     const sequences = {
         /* Idling sprite sequences for facing different directions */
         // This is sequence for mario. (mario.png: 408x352)
-        idleLeft:  { x: 0, y: 44, width: 34, height: 44, count: 9, timing: 2000, loop: false },
+        /*idleLeft:  { x: 0, y: 44, width: 34, height: 44, count: 9, timing: 2000, loop: false },
         idleUp:    { x: 0, y: 132, width: 34, height: 44, count: 9, timing: 2000, loop: false },
         idleRight: { x: 0, y: 88, width: 34, height: 44, count: 9, timing: 2000, loop: false },
         idleDown:  { x: 0, y:  0, width: 34, height: 44, count: 9, timing: 2000, loop: false },
@@ -19,18 +19,18 @@ const Player = function(ctx, x, y, gameArea) {
         moveLeft:  { x: 0, y: 220, width: 34, height: 44, count: 12, timing: 50, loop: true },
         moveUp:    { x: 0, y: 308, width: 34, height: 44, count: 12, timing: 50, loop: true },
         moveRight: { x: 0, y: 264, width: 34, height: 44, count: 12, timing: 50, loop: true },
-        moveDown:  { x: 0, y: 176, width: 34, height: 44, count: 12, timing: 50, loop: true }
+        moveDown:  { x: 0, y: 176, width: 34, height: 44, count: 12, timing: 50, loop: true }*/
 
         // This is sequence for luigi. (luigi.png: 360x320)
-        /*idleLeft:  { x: 0, y: 40, width: 30, height: 40, count: 9, timing: 2000, loop: false },
+        idleLeft:  { x: 0, y: 40, width: 30, height: 40, count: 9, timing: 2000, loop: false },
         idleUp:    { x: 0, y: 120, width: 30, height: 40, count: 9, timing: 2000, loop: false },
         idleRight: { x: 0, y: 80, width: 30, height: 40, count: 9, timing: 2000, loop: false },
         idleDown:  { x: 0, y:  0, width: 30, height: 40, count: 9, timing: 2000, loop: false },
 
-        moveLeft:  { x: 0, y: 200, width: 30, height: 40, count: 12, timing: 50, loop: true },
-        moveUp:    { x: 0, y: 280, width: 30, height: 40, count: 12, timing: 50, loop: true },
-        moveRight: { x: 0, y: 240, width: 30, height: 40, count: 12, timing: 50, loop: true },
-        moveDown:  { x: 0, y: 160, width: 30, height: 40, count: 12, timing: 50, loop: true }*/
+        moveLeft:  { x: 0, y: 200, width: 30, height: 40, count: 9, timing: 50, loop: true },
+        moveUp:    { x: 0, y: 280, width: 30, height: 40, count: 9, timing: 50, loop: true },
+        moveRight: { x: 0, y: 240, width: 30, height: 40, count: 9, timing: 50, loop: true },
+        moveDown:  { x: 0, y: 160, width: 30, height: 40, count: 9, timing: 50, loop: true }
     };
 
     // This is the sprite object of the player created from the Sprite module.
@@ -40,7 +40,7 @@ const Player = function(ctx, x, y, gameArea) {
     sprite.setSequence(sequences.idleDown)
           .setScale(1.6)
           .setShadowScale({ x: 0.75, y: 0.20 })
-          .useSheet("image/mario.png");
+          .useSheet("image/luigi.png");
 
     // This is the moving direction, which can be a number from 0 to 4:
     // - `0` - not moving
@@ -50,7 +50,7 @@ const Player = function(ctx, x, y, gameArea) {
     // - `4` - moving down
     let direction = 0;
     // This is the moving speed (pixels per second) of the player
-    let speed = 55;
+    let speed = 50;
 
     // This function sets the player's moving direction.
     // - `dir` - the moving direction (1: Left, 2: Up, 3: Right, 4: Down)
@@ -82,7 +82,7 @@ const Player = function(ctx, x, y, gameArea) {
 
     // This function speeds up the player.
     const speedUp = function() {
-        speed = 110;
+        speed = 250;
     };
 
     // This function further speed up the player.
@@ -91,14 +91,11 @@ const Player = function(ctx, x, y, gameArea) {
     }
     // This function slows down the player.
     const slowDown = function() {
-        speed = 55;
+        speed = 150;
     };
     // Change speed according to different event
     const changeSpeed = function(speeds) {
         speed = speeds;
-    }
-    const getSpeed = function() {
-        return speed;
     }
 
     // This function updates the player depending on his movement.
@@ -135,7 +132,6 @@ const Player = function(ctx, x, y, gameArea) {
         changeSpeed: changeSpeed,
         getBoundingBox: sprite.getBoundingBox,
         draw: sprite.draw,
-        update: update,
-        getSpeed: getSpeed
+        update: update
     };
 };

@@ -17,7 +17,7 @@ $(document).ready(function () {
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp
-    const top = 100;
+    const top = 30;   //180, 50, 700, 1450
     const left = 50;
     const bottom = 700;
     const right = 1450;
@@ -26,38 +26,14 @@ $(document).ready(function () {
     const gamearea = BoundingBox(context, top, left, bottom, right)
 
     //Create pipe for background
-    vertical_all_x = [  200, 200, 200, 200, 200, 200, 200, 200, 200,
-                        400, 400, 400, 400, 400, 400, 400, 400, 400, 
-                        600, 600, 600, 600, 600, 600, 600, 600, 600,
-                        800, 800, 800, 800, 800, 800, 800, 800, 800,
-                        1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
-                        1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 
-                        1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400, 1400];
+    const vertical_all_x = [200, 400, 550, 750, 950, 1100, 1300];
+    const vertical_all_y = [365, 365, 270, 100, 270, 365, 365];
 
-    vertical_all_y = [  170, 170, 250, 330, 410, 490, 570, 650, 730, 
-                        170, 170, 250, 330, 410, 490, 570, 650, 730,
-                        170, 170, 250, 330, 410, 490, 570, 650, 730,
-                        170, 170, 250, 330, 410, 490, 570, 650, 730,
-                        170, 170, 250, 330, 410, 490, 570, 650, 730,
-                        170, 170, 250, 330, 410, 490, 570, 650, 730,
-                        170, 170, 250, 330, 410, 490, 570, 650, 730]
+    const horizontal_all_x = [750, 750, 750, 750, 750];
+    const horizontal_all_y = [150, 300, 400, 550, 700];
 
-    horizontal_all_x = [90, 170, 250, 330, 410, 490, 570, 650, 730, 
-                        810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450,  
-                        90, 170, 250, 330, 410, 490, 570, 650, 730,
-                        810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450, 
-                        90, 170, 250, 330, 410, 490, 570, 650, 730, 
-                        810, 890, 970, 1050, 1130, 1210, 1290, 1370, 1450]
-
-    horizontal_all_y = [200, 200, 200, 200, 200, 200, 200, 200, 200, 
-                        200, 200, 200, 200, 200, 200, 200, 200, 200,
-                        400, 400, 400, 400, 400, 400, 400, 400, 400, 
-                        400, 400, 400, 400, 400, 400, 400, 400, 400, 
-                        600, 600, 600, 600, 600, 600, 600, 600, 600, 
-                        600, 600, 600, 600, 600, 600, 600, 600, 600];
-
-    vertical_total = 63;
-    horizontal_total = 54;
+    const vertical_total = 7; 
+    const horizontal_total = 5; 
     const vertical_all_stairs = All_Stairs(context, vertical_all_x, vertical_all_y, vertical_total, "vertical");
     const vertical_stairs = vertical_all_stairs.getStairs();
     const horizontal_all_stairs = All_Stairs(context, horizontal_all_x, horizontal_all_y, horizontal_total, "horizontal");
@@ -97,6 +73,7 @@ $(document).ready(function () {
         if (timeRemaining == 0) {
             //Show gameover page
             $('#game-over').show();
+            // if ()
             return 0;
         }
         if ($("#p1health").val() == 0 || player2.getBoundingBox().isPointInBox(800, 80)) {
@@ -109,7 +86,7 @@ $(document).ready(function () {
             $("#winner").text("P1");
             return 0;
         }
-        
+
         //Update objects
         //Refer to lab4 sprite.js
         vertical_stairs.forEach(stair => {stair.update(now)});
@@ -118,6 +95,10 @@ $(document).ready(function () {
         player1.update(now);
         player2.update(now);
 
+        const {at_intersection1, at_vertical1} = playerStatus(player1, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer=true);
+        const {at_intersection2, at_vertical2} = playerStatus(player2, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer=false);
+        playerControlChecking(player1, player2, at_intersection1, at_vertical1, at_intersection2, at_vertical2);
+        
         bombs.forEach(bomb => {bomb.update(now);});
         hearts.forEach(heart => {heart.update(now);});
         shields.forEach(enemy => {enemy.update(now);});
