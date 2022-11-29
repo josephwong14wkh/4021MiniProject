@@ -40,7 +40,7 @@ const Stair = function(ctx, x, y, color, isVertical) {
           .setIsVertical(isVerticalBoolean);
 
     const setColor = function(color) {
-        sprite.setSequence(sequences[color]);
+        sprite.setSequence(sequences[isVertical][color]);
     };
 
     return {
@@ -48,7 +48,8 @@ const Stair = function(ctx, x, y, color, isVertical) {
         setXY: sprite.setXY,
         getBoundingBox: sprite.getBoundingBox,
         draw: sprite.draw,
-        update: sprite.update, 
+        update: sprite.update,
+        setScale : sprite.setScale, 
         setColor: setColor
     };
 }

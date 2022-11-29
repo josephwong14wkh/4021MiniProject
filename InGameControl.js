@@ -1,15 +1,16 @@
 const playerStatus = function(player, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer) {
-    const threshold = 30;
+    const threshold = 10;
     player_box = player.getBoundingBox();
     const {x_center, y_center} = player_box.getCenter();
     let at_intersection = false;  // Check whether player is at the intersection
     let at_vertical = false;
+
     
     for (let j=0; j<vertical_total; j++){
         const vert_stair_box = vertical_stairs[j].getBoundingBox();
         for (let k=0; k<horizontal_total; k++){
             const hor_stair_box = horizontal_stairs[k].getBoundingBox();
-            if (hor_stair_box.isPointInBox(x_center, (y_center+threshold)) && vert_stair_box.isPointInBox(x_center, y_center)){
+            if (hor_stair_box.isPointInBox(x_center, ((y_center+threshold)+threshold)) && vert_stair_box.isPointInBox(x_center, y_center)){
                 // Change the keydown event
                 // Player can go left, right, up and down
                 at_intersection = true;
@@ -49,7 +50,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 87:player1.move(2);break; // Up
                     case 68:player1.move(3);break; // Right
@@ -66,7 +71,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 87:player1.move(2);break; // Up
                     case 68:player1.move(3);break; // Right
@@ -81,7 +90,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 87:player1.move(2);break; // Up
                     case 68:player1.move(3);break; // Right
@@ -96,7 +109,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 87:player1.move(2);break; // Up
                     case 83:player1.move(4);break; // Down
 
@@ -111,7 +128,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 87:player1.move(2);break; // Up
                     case 83:player1.move(4);break; // Down
 
@@ -124,7 +145,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 87:player1.move(2);break; // Up
                     case 83:player1.move(4);break; // Down
 
@@ -137,7 +162,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 68:player1.move(3);break; // Right
 
@@ -152,7 +181,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");        
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 68:player1.move(3);break; // Right
 
@@ -165,7 +198,11 @@ const playerControlChecking = function(player1, player2, at_intersection1, at_ve
         $(document).off("keydown");
             $(document).on("keydown", function(event) {
                 switch (event.keyCode) {
-                    case 72:player1.speedUp();break;
+                    case 72:{
+                        $("#p1shield").text(999)
+                        player1.speedUp();
+                        break;
+                    }
                     case 65:player1.move(1);break;// Left
                     case 68:player1.move(3);break; // Right
 
