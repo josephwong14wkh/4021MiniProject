@@ -1,10 +1,10 @@
 const playerStatus = function(player, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer) {
-    const threshold = 30;
+    const threshold = 10;
     player_box = player.getBoundingBox();
     const {x_center, y_center} = player_box.getCenter();
     let at_intersection = false;  // Check whether player is at the intersection
     let at_vertical = false;
-    
+
     for (let j=0; j<vertical_total; j++){
         const vert_stair_box = vertical_stairs[j].getBoundingBox();
         for (let k=0; k<horizontal_total; k++){

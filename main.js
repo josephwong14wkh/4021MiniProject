@@ -32,8 +32,8 @@ $(document).ready(function () {
 
     //Create sprites
     //Create P1 & P2 from the two side of canvas
-    const player1 = Player(context, 100, 685, gamearea);//left, bottom
-    const player2 = Player(context, 1400, 685, gamearea);//right, bottom
+    const player1 = Player1(context, 100, 685, gamearea);//left, bottom
+    const player2 = Player2(context, 1400, 685, gamearea);//right, bottom
 
     //Create health bar
     // const healthBarWidth = 200;
