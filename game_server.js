@@ -1,3 +1,5 @@
+let random = {};
+
 const express = require("express");
 
 const bcrypt = require("bcrypt");
@@ -207,6 +209,18 @@ io.on("connection", (socket) => {
     socket.on("send stat", (data) => {
         console.log(data);
     });
+
+    let randomx = [], initbomby = [], bomby = [], randomy = [];
+    for (let i=0; i<20; i++) {
+        initbomby.push(Math.floor(Math.random() * -1000) - 100);
+        randomx.push(Math.random() * (1450 - 50) + 50);
+        bomby.push(Math.floor(Math.random() * 20));
+    }
+    for (let i=0; i<5; i++) randomy.push(Math.floor(Math.random() * 5));
+    if (Object.keys(random).length == 0) {
+        random = {randomx, initbomby, randomy, bomby};
+    }
+    socket.emit("random", JSON.stringify(random));
 });
 
 

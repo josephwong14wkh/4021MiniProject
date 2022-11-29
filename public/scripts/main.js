@@ -58,12 +58,19 @@ const main = function() {
     const spitem_y_range = [150, 300, 400, 550, 700];
     const bell = Bell(context, 750, 50);
 
-    for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, Math.floor(Math.random() * -1000) - 100))
-    for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, Math.random() * (right - left) + left, enemy_y_range[i]));
-    for (let i=0; i<maxheart; i++) hearts.push(Heart(context, Math.random() * (right - left) + left, heart_y_range[Math.floor(Math.random() * 4)]));
-    for (let i=0; i<maxspitem; i++) shields.push(Shield(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)]));
-    for (let i=0; i<maxspitem; i++) boots.push(Boot(context, Math.random() * (right - left) + left, spitem_y_range[Math.floor(Math.random() * 4)]));
+    let rdx, bby, rdy;
 
+    const socket = io();
+    socket.on("random", (data) => {
+        let {randomx, initbomby, randomy, bomby} = JSON.parse(data);
+        for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, randomx[i], initbomby[i]))
+        for (let i=0; i<maxenemy; i++) enemies.push(Enemy(context, randomx[i], enemy_y_range[i]));
+        for (let i=0; i<maxheart; i++) hearts.push(Heart(context, randomx[i], heart_y_range[randomy[i]]));
+        for (let i=0; i<maxspitem; i++) shields.push(Shield(context, randomx[i], spitem_y_range[randomy[i+2]]));
+        for (let i=0; i<maxspitem; i++) boots.push(Boot(context, randomx[i], spitem_y_range[randomy[i]]));
+        rdx = randomx; bby = bomby; rdy = randomy;
+    })
+    
     function doFrame(now) {
 
         sounds.background.play();
@@ -122,12 +129,13 @@ const main = function() {
         boots.forEach(boot => {boot.update(now);});
 
         //Generate object
-        dropBomb(bombs, bomb_y_range, now, left, right);
-        checkTouchBomb(player1, player2, bombs, left, right, sounds);
+        console.log(rdx);
+        dropBomb(bombs, bomb_y_range, now, rdx, bby);
+        checkTouchBomb(player1, player2, bombs, rdx, sounds);
         enemyMove(enemies, left, right);
-        checkTouchEnemy(player1, player2, enemies, enemy_y_range, left, right, sounds);
-        chekcTouchSPItem(player1, player2, shields, boots, spitem_y_range, left, right, sounds);
-        checkTouchHeart(player1, player2, hearts, heart_y_range, left, right, sounds);
+        checkTouchEnemy(player1, player2, enemies, enemy_y_range, rdx, rdy, sounds);
+        chekcTouchSPItem(player1, player2, shields, boots, spitem_y_range, rdx, rdy, sounds);
+        checkTouchHeart(player1, player2, hearts, heart_y_range, rdx, rdy, sounds);
 
         //Clear the screen
         context.clearRect(0, 0, cv.width, cv.height);

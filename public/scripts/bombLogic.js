@@ -1,9 +1,9 @@
-const dropBomb = (bombs, bomb_y_range, now, cvleft, cvright) => {
+const dropBomb = (bombs, bomb_y_range, now, randomx, randomy) => {
     bombs.forEach((bomb, index) => {
         let { x, y } = bomb.getXY();
 
         //Dropping bombs by moving y-axis
-        if (y <= parseInt(bomb_y_range[index])) {
+        if (y <= parseInt(bomb_y_range[randomy[index]])) {
             bomb.setBomb("tickingBomb");
             bomb.setXY(x, y+1)
         }
@@ -12,13 +12,13 @@ const dropBomb = (bombs, bomb_y_range, now, cvleft, cvright) => {
         if (bomb.getAge(now) > 3000) {
             bomb.setBomb("explode");
             setTimeout(() => {
-                bomb.setXY(Math.random() * (cvright - cvleft) + cvleft, -50)
+                bomb.setXY(randomx[index], -50)
             }, 500);
         }
     });
 }
 
-const checkTouchBomb = (p1, p2, bombs, cvright, cvleft, sounds) => {
+const checkTouchBomb = (p1, p2, bombs, randomx, sounds) => {
     const p1box = p1.getBoundingBox();
     const p2box = p2.getBoundingBox();
     const initspeed = 55;
@@ -38,7 +38,7 @@ const checkTouchBomb = (p1, p2, bombs, cvright, cvleft, sounds) => {
 
             //Despawn bombs after hit player
             setTimeout(() => {
-                bomb.setXY(Math.random() * (cvright - cvleft) + cvleft, -50);
+                bomb.setXY(randomx[index], -50);
             }, 5);
 
             //Check if player has shield or not, cause damage, slow speed
@@ -70,7 +70,7 @@ const checkTouchBomb = (p1, p2, bombs, cvright, cvleft, sounds) => {
 
             //Despawn bombs after hit player
             setTimeout(() => {
-                bomb.setXY(Math.random() * (cvright - cvleft) + cvleft, -50)
+                bomb.setXY(randomx[index], -50)
             }, 5);
             
             //Check if player has shield or not, cause damage, slow speed

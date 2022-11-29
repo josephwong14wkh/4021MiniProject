@@ -56,6 +56,16 @@ const Socket = (function() {
 
         // start game 
         socket.on("start game", startgame);
+
+        socket.on("rand", () => {
+            console.log("in socket.on rand");
+            console.log(Authentication.getUser());
+            console.log(socket.request.session.user);
+            if (Authentication.getUser() != socket.request.session.user) {
+                console.log("in if");
+                randomize();
+            }
+        })
     };
 
     // This function disconnects the socket from the server

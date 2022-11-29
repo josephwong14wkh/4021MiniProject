@@ -1,11 +1,11 @@
-const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, cvleft, cvright, sounds) => {
+const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, randomx, randomy, sounds) => {
     const p1box = p1.getBoundingBox();
     const p2box = p2.getBoundingBox();
 
     let p1shields = parseInt($("#p1shield").text());
     let p2shields = parseInt($("#p2shield").text());
 
-    shields.forEach(shield => {
+    shields.forEach((shield, index) => {
         const shieldxy = shield.getXY();
         let shieldx = shieldxy.x, shieldy = shieldxy.y;
 
@@ -17,7 +17,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, cvleft, cvrigh
             if (p1shields == 0) $("#p1shield").text(1);
             shield.setXY(-1000, -1000)
             setTimeout(() => {
-                shield.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)])
+                shield.setXY(randomx[index], spitem_y_range[randomy[index]])
             }, 10000);
         }
 
@@ -29,12 +29,12 @@ const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, cvleft, cvrigh
             if (p2shields == 0) $("#p2shield").text(1)
             shield.setXY(-1000, -1000)
             setTimeout(() => {
-                shield.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)])
+                shield.setXY(randomx[index], spitem_y_range[randomy[index]])
             }, 10000);
         }
     });
     
-    boots.forEach(boot => {
+    boots.forEach((boot, index) => {
         const bootxy = boot.getXY();
         let bootx = bootxy.x, booty = bootxy.y;
 
@@ -52,7 +52,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, cvleft, cvrigh
 
             boot.setXY(-1000, -1000)
             setTimeout(() => {
-                boot.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)])
+                boot.setXY(randomx[index], spitem_y_range[randomy[index]])
             }, 10000);
         }
 
@@ -70,7 +70,7 @@ const chekcTouchSPItem = (p1, p2, shields, boots, spitem_y_range, cvleft, cvrigh
             
             boot.setXY(-1000, -1000)
             setTimeout(() => {
-                boot.setXY(Math.random() * (cvright - cvleft) + cvleft, spitem_y_range[Math.floor(Math.random() * 4)])
+                boot.setXY(randomx[index], spitem_y_range[randomy[index]])
             }, 10000);
         }
     });

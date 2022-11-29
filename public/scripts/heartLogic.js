@@ -7,7 +7,7 @@ const updateHealth = (player, health) => {
     }
 }
 
-const checkTouchHeart = (p1, p2, hearts, heart_y_range, cvright, cvleft, sounds) => {
+const checkTouchHeart = (p1, p2, hearts, heart_y_range, randomx, randomy, sounds) => {
     const p1box = p1.getBoundingBox();
     const p2box = p2.getBoundingBox();
 
@@ -23,7 +23,7 @@ const checkTouchHeart = (p1, p2, hearts, heart_y_range, cvright, cvleft, sounds)
             heart.setXY(-1000, -1000)
             updateHealth("p1", 10);
             setTimeout(() => {
-                heart.setXY(Math.random() * (cvright - cvleft) + cvleft, heart_y_range[Math.floor(Math.random() * 4)])
+                heart.setXY(randomx[index], heart_y_range[randomy[index]])
             }, 5000);
         }
 
@@ -36,7 +36,7 @@ const checkTouchHeart = (p1, p2, hearts, heart_y_range, cvright, cvleft, sounds)
             heart.setXY(-1000, -1000)
             updateHealth("p2", 10);
             setTimeout(() => {
-                heart.setXY(Math.random() * (cvright - cvleft) + cvleft, heart_y_range[Math.floor(Math.random() * 4)])
+                heart.setXY(randomx[index], heart_y_range[randomy[index]])
             }, 5000);
         }
     })
