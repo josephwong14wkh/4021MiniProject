@@ -203,6 +203,10 @@ io.on("connection", (socket) => {
     socket.on("start game", () => {
         io.emit("start game");
     });
+
+    socket.on("send stat", (data) => {
+        console.log(data);
+    });
 });
 
 

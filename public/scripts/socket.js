@@ -45,7 +45,8 @@ const Socket = (function() {
         });
 
         // Set up the acceptance event 
-        socket.on("accept pair", (sender_name, recevier_name) => {            
+        socket.on("accept pair", (sender_name, recevier_name) => {     
+            // console.log(sender_name, recevier_name);      
             if (Authentication.getUser().name == recevier_name) {
                 const response = confirm("Do want to pair up with " + sender_name + "?");
                 if(response)
@@ -53,7 +54,7 @@ const Socket = (function() {
             }
         });
 
-        // start game
+        // start game 
         socket.on("start game", startgame);
     };
 
@@ -83,6 +84,12 @@ const Socket = (function() {
         }
     };
 
+    // This function send statistics data to sever
+    const send_stat = function(data) {
+        if (socket && socket.connected) {
+            socket.emit("send stat", data);
+        }
+    }
     
-    return { getSocket, connect, disconnect, postMessage, pairUser, startgame};
+    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, send_stat};
 })();

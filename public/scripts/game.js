@@ -13,7 +13,7 @@ function game_fuc() {
         gameover: new Audio("../media/gameover.mp3")
     };
 
-    const totalGameTime = 20;   // Total game time in seconds
+    const totalGameTime = 5;   // Total game time in seconds
     const gemMaxAge = 3000;     // The maximum age of the gems in milliseconds
     let gameStartTime = 0;      // The timestamp when the game starts
     let collectedGems = 0;      // The number of gems collected in the game
@@ -59,6 +59,14 @@ function game_fuc() {
             $("#game-start").hide();
             $("#final-gems").text(collectedGems);
             $("#game-over").show(); 
+
+            
+            // constrcut and send statistic data
+            timeleft = 12;
+            health = 80;
+            
+            data = {timeleft, health};
+            Socket.send_stat(data);
 
             sounds.background.pause();
             sounds.collect.pause();

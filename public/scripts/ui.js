@@ -189,7 +189,7 @@ const OnlineUsersPanel = (function() {
 		// Find the user
 		const userDiv = onlineUsersArea.find("#username-" + user.username);
 		
-		// Remove the user
+		// Remove the user 
 		if (userDiv.length > 0) userDiv.remove();
 	};
     return { initialize, update, addUser, removeUser };
@@ -240,19 +240,17 @@ const ChatPanel = (function() {
         $("#start_game_button_container").show();
     };
 
-    const show_endpage = function(time, score) {
+    const show_endpage = function(time, health) {
         time = 14;
-        score = 30; 
+        health = 30; 
 
         chatArea = $("#chat-area");
 
-        text = "Your goal is to collect the star in top level of the map. \
-                You can also pick up different speical objects in the game \
-                Avoid the bomb which will damage your health bar! "
         chatArea.append(
-			$("<div class='chat-instruction-container'></div>")
-            .append($("<div class='chat-instruction-title'>" + "Game Statistics" + "<br><br></div>"))
-            .append($("<div class='chat-instruction'>" + text + "</div>")));
+			$("<div class='chat-endpage-container'></div>")
+            .append($("<div class='chat-enpage-title'>" + "Game Statistics" + "<br><br></div>"))
+            .append($("<div class='chat-date'>" + time + "</div>"))
+            .append($("<div class='chat-content'>" + health + "</div>")));
     }
     return { initialize, update, hide_instruction, show_instruction, show_endpage };
 })();
