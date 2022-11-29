@@ -41,8 +41,8 @@ $(document).ready(function () {
 
     //Create sprites
     //Create P1 & P2 from the two side of canvas
-    const player1 = Player(context, left, bottom, gamearea);
-    const player2 = Player(context, right, bottom, gamearea);
+    const player1 = Player1(context, left, bottom, gamearea);
+    const player2 = Player2(context, right, bottom, gamearea);
 
     //Create items
     const maxbomb = 20, maxenemy = 6, maxheart = 3, maxspitem = 2;
