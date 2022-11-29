@@ -78,15 +78,23 @@
 
     <!-- Game container -->
     <div id="game-container">
-        <canvas width="854px" height="480px"></canvas>
+        <canvas width="1500px" height="730px"></canvas>
 
         <svg xmlns="http://www.w3.org/2000/svg" id="counter">
             <text x="10" y="35">
-                TIME:<tspan id="time-remaining">20</tspan>
+                TIME:<tspan id="time-remaining">180</tspan>
             </text>
+
+            <text x="10" y="75">P1</text>
+            <image href="mdn_logo_only_color.png" x="10", y="90"height="25" width="25" />
+            <text x="50" y="115"> x <tspan id="p1shield">0</tspan></text>
+
+            <text x="1450" y="75">P2</text>
+            <image href="mdn_logo_only_color.png" x="1390", y="90"height="25" width="25" />
+            <text x="1430" y="115"> x <tspan id="p2shield">0</tspan></text>
         </svg>
 
-        <svg xmlns="http://www.w3.org/2000/svg" id="game-start">
+        <svg xmlns="http://www.w3.org/2000/svg" id="game-start" >
             <defs>
                 <linearGradient id="title-fill" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0.2" stop-color="red" />
@@ -107,22 +115,41 @@
                     <stop offset="1" stop-color="red" />
                 </linearGradient>
             </defs>
-            <text x="50%" y="50%">
-                Time's up! You have collected
-                <tspan id="final-gems">0</tspan>
-                gem(s).
+            <text id="text", x="50%" y="50%">
+                Time's up! Tie!
             </text>
         </svg>
+
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" id="player-stat">
+
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="player-rank" display="show">
+            <text x="50%" y="50%">
+                <tspan>Top 5 Players</tspan>
+            </text>
+        </svg> -->
     </div>
 
     <script src="scripts/bounding_box.js"></script>
     <script src="scripts/sprite.js"></script>
-    <script src="scripts/player.js"></script>
-    <script src="scripts/gem.js"></script>
-    <script src="scripts/fire.js"></script>
-    <script src="scripts/game.js"></script>
-
-
+    <script src="scripts/player1.js"></script>
+    <script src="scripts/player2.js"></script>
+    <script src="scripts/InGameControl.js"></script>
+    <script src="scripts/bell.js"></script>
+    <script src="scripts/bomb.js"></script>
+    <script src="scripts/boot.js"></script>
+    <script src="scripts/enemy.js"></script>
+    <script src="scripts/shield.js"></script>
+    <script src="scripts/hearts.js"></script>
+    <script src="scripts/bombLogic.js"></script>
+    <script src="scripts/enemyLogic.js"></script>
+    <script src="scripts/spItemsLogic.js"></script>
+    <script src="scripts/heartLogic.js"></script>
+    <script src="scripts/playerControl.js"></script>
+    <script src="scripts/all_stairs.js"></script>
+    <script src="scripts/stair.js"></script>
+    <script src="scripts/main.js"></script>
 
     <script src="/socket.io/socket.io.min.js"></script>
     <script src="scripts/socket.js"></script>

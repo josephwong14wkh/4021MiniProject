@@ -2,7 +2,7 @@
 // - `ctx` - A canvas context for drawing
 // - `x` - The initial x position of the sprite
 // - `y` - The initial y position of the sprite
-const Sprite = function(ctx, x, y) {
+const Sprite = function(ctx, x, y, isStair=false) {
 
     // This is the image object for the sprite sheet.
     const sheet = new Image();
@@ -32,6 +32,8 @@ const Sprite = function(ctx, x, y) {
     // It is used to determine the timing to switch to the next sprite image.
     let lastUpdate = 0;
 
+    let isVertical = true; // It is used to determine whether the stair is vertical or not
+    let isStairBoolean = isStair;
     // This function uses a new sprite sheet in the image object.
     // - `spriteSheet` - The source of the sprite sheet (URL)
     const useSheet = function(spriteSheet) {
@@ -54,6 +56,11 @@ const Sprite = function(ctx, x, y) {
     // - `yvalue` - The new y position
     const setXY = function(xvalue, yvalue) {
         [x, y] = [xvalue, yvalue];
+        return this;
+    };
+
+    const setIsVertical = function(isVerticalValue) {
+        isVertical = isVerticalValue
         return this;
     };
 
@@ -85,8 +92,18 @@ const Sprite = function(ctx, x, y) {
     // This function gets the display size of the sprite.
     const getDisplaySize = function() {
         /* Find the scaled width and height of the sprite */
-        const scaledWidth  = sequence.width * scale;
-        const scaledHeight = sequence.height * scale;
+        let scaledWidth  = sequence.width * scale;
+        let scaledHeight = sequence.height * scale;
+        if (isStairBoolean){
+            if (isVertical){
+                scaledHeight = sequence.height * scale;
+                scaledWidth  = sequence.width * 2;
+            }else{
+                scaledHeight = sequence.height * 2;
+                scaledWidth  = sequence.width * scale;
+            }
+        }
+
         return {width: scaledWidth, height: scaledHeight};
     };
 
@@ -96,6 +113,7 @@ const Sprite = function(ctx, x, y) {
         const size = getDisplaySize();
 
         /* Find the box coordinates */
+        // Here x y is teh center of sprite
         const top = y - size.height / 2;
         const left = x - size.width / 2;
         const bottom = y + size.height / 2;
@@ -141,19 +159,20 @@ const Sprite = function(ctx, x, y) {
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(
             sheet,
-            sequence.x + index * sequence.width,
+            sequence.x + index*sequence.width,
             sequence.y,
-            sequence.width, sequence.height,
+            sequence.width,
+            sequence.height,
             parseInt(x - size.width / 2),
-            parseInt(y - size. height / 2),
+            parseInt(y - size.height / 2),
             size.width,
-            size.height
-        )
+            size.height);
+
 
         /* Restore saved settings */
         ctx.restore();
     };
-     
+
     // This function draws the shadow and the sprite.
     const draw = function() {
         if (isReady()) {
@@ -168,17 +187,19 @@ const Sprite = function(ctx, x, y) {
     // - `time` - The timestamp when this function is called
     const update = function(time) {
         if (lastUpdate == 0) lastUpdate = time;
-   
+
+
         /* TODO */
         /* Move to the next sprite when the timing is right */
-        if (time - lastUpdate >= sequence.timing) {
+        if (time - lastUpdate >= sequence.timing){
             index++;
-            if (index >= sequence.count) {
-                if (sequence.loop)
+            if(index >= sequence.count){
+                if (sequence.loop){
                     index = 0;
-                else
+                }else{
                     index--;
-            }
+                }
+            } 
             lastUpdate = time;
         }
 
@@ -197,6 +218,7 @@ const Sprite = function(ctx, x, y) {
         getBoundingBox: getBoundingBox,
         isReady: isReady,
         draw: draw,
-        update: update
+        update: update,
+        setIsVertical : setIsVertical 
     };
 };

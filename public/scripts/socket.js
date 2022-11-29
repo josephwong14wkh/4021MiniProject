@@ -80,7 +80,7 @@ const Socket = (function() {
     };
     const startgame = function() {
         if (socket && socket.connected) {
-            game_fuc();
+            main();
         }
     };
 
