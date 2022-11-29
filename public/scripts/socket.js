@@ -44,22 +44,6 @@ const Socket = (function() {
             OnlineUsersPanel.removeUser(user);
         });
 
-        // Set up the messages event
-        // socket.on("messages", (chatroom) => {
-        //     chatroom = JSON.parse(chatroom);
-
-        //     // Show the chatroom messages
-        //     ChatPanel.update(chatroom);
-        // });
-
-        // Set up the add message event
-        // socket.on("add message", (message) => {
-        //     message = JSON.parse(message);
-
-        //     // Add the message to the chatroom
-        //     ChatPanel.addMessage(message);
-        // });
-
         // Set up the acceptance event 
         socket.on("accept pair", (sender_name, recevier_name) => {            
             if (Authentication.getUser().name == recevier_name) {
@@ -69,6 +53,7 @@ const Socket = (function() {
             }
         });
 
+        // start game
         socket.on("start game", startgame);
     };
 

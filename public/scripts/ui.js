@@ -93,7 +93,6 @@ const UserPanel = (function() {
                     hide();
                     // SignInForm.show();
                     ChatPanel.show_instruction();
-
                 }
             );
         });
@@ -145,14 +144,11 @@ const OnlineUsersPanel = (function() {
                     $("<div id='username-" + username + "'></div>")
                         .append(UI.getUserDisplay(onlineUsers[username]))
                 );
-                
-                // console.log("debug1: "+ currentUser.name ,onlineUsers[username].name);
-                // Set 
+                // Set click icon pair up event
                 $("#username-" + username).on('click', ()=> {
                     const response = confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
-                    if (response){
+                    if (response)
                         Socket.pairUser(currentUser.name ,onlineUsers[username].name);
-                    }
                 });
             }
         }
@@ -196,9 +192,6 @@ const OnlineUsersPanel = (function() {
 		// Remove the user
 		if (userDiv.length > 0) userDiv.remove();
 	};
-
-
-
     return { initialize, update, addUser, removeUser };
 })();
 
@@ -221,35 +214,10 @@ const ChatPanel = (function() {
             .append($("<div class='chat-instruction-title'>" + "Game Instructions" + "<br><br></div>"))
             .append($("<div class='chat-instruction'>" + text + "</div>")));
 
-
         // begin button 
         $("#start_game_button").on("click", ()=> {
             SignInForm.show(); 
         });
-
-        // Submit event for the input form
-        // $("#chat-input-form").on("submit", (e) => {
-        //     // Do not submit the form
-        //     e.preventDefault();
-
-        //     // Get the message content
-        //     const content = $("#chat-input").val().trim();
-
-        //     // Post it
-        //     Socket.postMessage(content);
-
-		// 	// Clear the message
-        //     $("#chat-input").val("");
-        // });
-
-        // improvement
-        // add a keydown listener to the input-form
-        // $("#chat-input-form").keydown("typing", () => {
-        //     //Send a WebSocket message to the server
-        //     // console.log("test_typing");
-        //     socket = Socket.getSocket();
-        //     socket.emit("typing");
-        // });
  	};
 
     // This function updates the chatroom area
@@ -262,33 +230,6 @@ const ChatPanel = (function() {
 			addMessage(message);
         }
     };
-
-    // improvement
-    // This function updates the typing status
-    // const update_typing = function(username) {
-
-    //     $("#typing-status").text(username + " is typing...");
-    //     setTimeout(() => {
-    //         $("#typing-status").text("");
-    //     }, 3000);
-    // };
-
-    // This function adds a new message at the end of the chatroom
-    // const addMessage = function(message) {
-	// 	const datetime = new Date(message.datetime);
-	// 	const datetimeString = datetime.toLocaleDateString() + " " +
-	// 						   datetime.toLocaleTimeString();
-
-	// 	chatArea.append(
-	// 		$("<div class='chat-message-panel row'></div>")
-	// 			.append(UI.getUserDisplay(message.user))
-	// 			.append($("<div class='chat-message col'></div>")
-	// 				.append($("<div class='chat-date'>" + datetimeString + "</div>"))
-	// 				.append($("<div class='chat-content'>" + message.content + "</div>"))
-	// 			)
-	// 	);
-	// 	chatArea.scrollTop(chatArea[0].scrollHeight);
-    // };
 
     const hide_instruction = function() {
         $(".chat-instruction-container").remove();
@@ -305,7 +246,6 @@ const ChatPanel = (function() {
 
         chatArea = $("#chat-area");
 
-
         text = "Your goal is to collect the star in top level of the map. \
                 You can also pick up different speical objects in the game \
                 Avoid the bomb which will damage your health bar! "
@@ -314,8 +254,6 @@ const ChatPanel = (function() {
             .append($("<div class='chat-instruction-title'>" + "Game Statistics" + "<br><br></div>"))
             .append($("<div class='chat-instruction'>" + text + "</div>")));
     }
-
-
     return { initialize, update, hide_instruction, show_instruction, show_endpage };
 })();
 
