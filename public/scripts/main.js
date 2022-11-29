@@ -6,7 +6,16 @@ const main = function() {
     $("#container").hide();
     $("#game-container").show();
 
-    const sounds = {};
+    const sounds = {
+        background: new Audio("../media/background.mp3"),
+        gameover: new Audio("../media/gameover.mp3"),
+        explosion: new Audio("../media/explosion.mp3"),
+        enemyhit: new Audio("../media/enemyhit.mp3"),
+        getshield: new Audio("../media/getshield.mp3"),
+        getboot: new Audio("../media/getboot.mp3"),
+        getheart: new Audio("../media/getheart.mp3"),
+    
+    };
 
     const totalgametime = 180;
     let gamestarttime = 0;
@@ -39,22 +48,14 @@ const main = function() {
     const player1 = Player1(context, left, 685, gamearea);//left, bottom
     const player2 = Player2(context, right, 685, gamearea);//right, bottom
 
-    //Create health bar
-    // const healthBarWidth = 200;
-    // const healthBarHeight = 30;
-    // const x = cv.width / 2 - healthBarWidth / 2;
-    // const y = cv.height / 2 - healthBarHeight / 2;
-
-    // const healthBar = new HealthBar(70, 45, 100, 30, 100, "green");
-
     //Create items
-    const maxbomb = 12, maxenemy = 6, maxheart = 3, maxspitem = 2;
+    const maxbomb = 20, maxenemy = 8, maxheart = 3, maxspitem = 2;
     const bombs = [], enemies = [], hearts = [], shields = [], boots = [];
     
-    const enemy_y_range = [200, 200, 400, 400, 600, 600];
-    const bomb_y_range = [200, 200, 200, 400, 400, 400, 600, 600, 600, 730, 730, 730];
-    const heart_y_range = [200, 400, 600, 730]
-    const spitem_y_range = [200, 400, 600, 730];
+    const enemy_y_range = [150, 150, 300, 300, 400, 400, 550, 550];
+    const bomb_y_range = [150, 300, 400, 550, 700, 150, 300, 400, 550, 700, 150, 300, 400, 550, 700, 150, 300, 400, 550, 700];
+    const heart_y_range = [150, 300, 400, 550, 700];
+    const spitem_y_range = [150, 300, 400, 550, 700];
     const bell = Bell(context, 750, 50);
 
     for (let i=0; i<maxbomb; i++) bombs.push(Bomb(context, Math.random() * (right - left) + left, -100))
@@ -65,8 +66,7 @@ const main = function() {
 
     function doFrame(now) {
 
-        
-
+        sounds.background.play();
         //Handle game start and gameover
         if (gamestarttime == 0) gamestarttime = now;
 
@@ -80,15 +80,21 @@ const main = function() {
         const player1_box = player1.getBoundingBox();
         const player2_box = player2.getBoundingBox();
         if (timeRemaining == 0){
+            sounds.background.pause();
+            sounds.gameover.play();
             $('#game-over').show();
             return 0;
         }else if (player1_box.isPointInBox(x, (y-20))){
+            sounds.background.pause();
+            sounds.gameover.play();
             win_user = "player1";
             text = win_user + " win the game!";
             $('#game-over text').text(text);
             $('#game-over').show();
             return 0;
         }else if (player2_box.isPointInBox(x, (y-20))){
+            sounds.background.pause();
+            sounds.gameover.play();
             win_user = "player2";
             text = win_user + " win the game!";
             $('#game-over text').text(text);
@@ -115,21 +121,13 @@ const main = function() {
         enemies.forEach(shield => {shield.update(now);});
         boots.forEach(boot => {boot.update(now);});
 
-        //Generate health bar
-        // healthBar.show(context);
-        // csv.onclick = function() {
-        //     health -= 10;
-        //     healthBar.updateHealth(health);
-        // };
-
         //Generate object
-        // for (let i=0; i<maxbomb; i++) yarr.push(Math.random() * (bottom - top) + top);
         dropBomb(bombs, bomb_y_range, now, left, right);
-        checkTouchBomb(player1, player2, bombs, bomb_y_range, left, right)
+        checkTouchBomb(player1, player2, bombs, left, right, sounds);
         enemyMove(enemies, left, right);
-        checkTouchEnemy(player1, player2, enemies, enemy_y_range, left, right)
-        chekcTouchSPItem(player1, player2, shields, boots, spitem_y_range, left, right)
-        checkTouchHeart(player1, player2, hearts, heart_y_range, left, right)
+        checkTouchEnemy(player1, player2, enemies, enemy_y_range, left, right, sounds);
+        chekcTouchSPItem(player1, player2, shields, boots, spitem_y_range, left, right, sounds);
+        checkTouchHeart(player1, player2, hearts, heart_y_range, left, right, sounds);
 
         //Clear the screen
         context.clearRect(0, 0, cv.width, cv.height);
