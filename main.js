@@ -8,17 +8,17 @@ $(document).ready(function () {
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp
-    const top = 110;   //180, 50, 700, 1450
-    const left = 100;
+    const top = 30;   //180, 50, 700, 1450
+    const left = 50;
     const bottom = 700;
-    const right = 1400;
+    const right = 1450;
 
     //Refer to lab4 BoundingBox.js
     const gamearea = BoundingBox(context, top, left, bottom, right)
 
     //Create pipe for background
-    const vertical_all_x = [200, 400, 600, 800, 1000, 1200, 1400];
-    const vertical_all_y = [365, 365, 365, 365, 365, 365, 365];
+    const vertical_all_x = [200, 400, 550, 750, 950, 1100, 1300];
+    const vertical_all_y = [365, 365, 270, 100, 270, 365, 365];
 
     const horizontal_all_x = [750, 750, 750, 750, 750];
     const horizontal_all_y = [150, 300, 400, 550, 700];
@@ -32,8 +32,8 @@ $(document).ready(function () {
 
     //Create sprites
     //Create P1 & P2 from the two side of canvas
-    const player1 = Player1(context, 100, 685, gamearea);//left, bottom
-    const player2 = Player2(context, 1400, 685, gamearea);//right, bottom
+    const player1 = Player1(context, left, 685, gamearea);//left, bottom
+    const player2 = Player2(context, right, 685, gamearea);//right, bottom
 
     //Create health bar
     // const healthBarWidth = 200;
