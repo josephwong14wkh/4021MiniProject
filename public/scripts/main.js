@@ -191,6 +191,8 @@ const main = function(I_am, isSender) {
     }
 
     if (timeRemaining > 0) {
+        texttt = "you are player" + type;
+        $("#who_you_are").text(texttt);
         timeRemaining--
         setTimeout(() => {
             $("#countdown").text(timeRemaining);
@@ -199,7 +201,7 @@ const main = function(I_am, isSender) {
     }
     else {
         $("#countdown").hide();
-
+        $("#who_you_are").hide();
         //Player controls
         moving(player1, player2);
         stopping(player1, player2);

@@ -285,13 +285,13 @@ button.icon:active {
     font-family: "Press Start 2P", sans-serif;
 } */
 
-canvas, #counter, #game-start, #game-over, #countdown {
+canvas, #counter, #game-start, #game-over, #countdown, #who_you_are {
     position: absolute;
     top: 0px;
     left: 0px;
     width: 854px;
 }
-canvas, #game-start, #game-over, #countdown {
+canvas, #game-start, #game-over, #countdown, #who_you_are {
     border: 1px solid gray;
     width: 854px;
     height: 480px;
@@ -300,7 +300,7 @@ canvas {
     background: url(media/background.png);
     background-size: cover;
 }
-#game-start, #game-over, #countdown {
+#game-start, #game-over, #countdown, #who_you_are {
     background: rgba(1, 1, 1, 0.8);
 }
 #counter text {
@@ -330,6 +330,14 @@ canvas {
     padding: 130px;
     text-align: center;
     font-size: 20vh;
+    color: white;
+}
+
+#who_you_are {
+    position: absolute;
+    padding: 110px;
+    text-align: center;
+    font-size: 5vh;
     color: white;
 }
 
