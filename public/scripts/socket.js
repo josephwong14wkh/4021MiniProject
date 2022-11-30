@@ -47,14 +47,11 @@ const Socket = (function() {
         });
 
         // Set up the acceptance event 
-        socket.on("accept pair", (sender_name, recevier_name) => {     
-            // console.log(sender_name, recevier_name);      
+        socket.on("accept pair", (sender_name, recevier_name) => {        
             if (Authentication.getUser().name == recevier_name) {
                 I_am = recevier_name;
                 isSender = false;
-                const response = confirm("Do want to pair up with " + sender_name + "?");
-                if(response)
-                    socket.emit("start game");
+                ChatPanel.show_pairup(sender_name);
             }
         });
 
@@ -71,7 +68,7 @@ const Socket = (function() {
         })
 
         // start game 
-        socket.on("accept start game", () => {startgame(I_am, isSender)});
+        socket.on("accept start game", () => {main(I_am, isSender)});
     };
 
     // This function disconnects the socket from the server
@@ -90,18 +87,15 @@ const Socket = (function() {
     // This function send a pair up request to server
     const pairUser= function(sender_name, recevier_name) {
         if (socket && socket.connected) {
-            console.log("I am sender ", sender_name);
             I_am = sender_name;
             isSender = true;
-            console.log(I_am, isSender);
             socket.emit("pair user", sender_name, recevier_name);
         }
     };
 
-    const startgame = function(I_am, isSender) {
+    const startgame = function() {
         if (socket && socket.connected) {
-            //console.log(I_am);
-            main(I_am, isSender);
+            socket.emit("start game");
         }
     };
 
@@ -130,5 +124,5 @@ const Socket = (function() {
     const get_other_loc = function() {
         return {other_x, other_y, other_dir};
     }
-    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, send_stat, send_loc, get_other_loc};
+    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, get_stat, send_loc, get_other_loc};
 })();

@@ -225,7 +225,6 @@ io.on("connection", (socket) => {
     })
 
     socket.on("get other loc", (now, username, other) => {
-        console.log("game server other loc");
         const users = JSON.parse(fs.readFileSync("data/information.json"));
         let x = 0;
         let y = 0;

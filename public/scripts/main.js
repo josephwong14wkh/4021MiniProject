@@ -19,7 +19,7 @@ const main = function(I_am, isSender) {
     
     };
 
-    const totalgametime = 1;
+    const totalgametime = 180;
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp
@@ -114,7 +114,7 @@ const main = function(I_am, isSender) {
         }
 
         let {other_x, other_y, other_dir} = Socket.get_other_loc();
-        console.log(other_x, other_y, other_dir);
+        
         if (_isSender){
             player2.update_by_other(now, other_x, other_y, other_dir);
             player1.update(now);
