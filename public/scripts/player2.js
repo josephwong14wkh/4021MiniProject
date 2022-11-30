@@ -99,6 +99,14 @@ const Player2 = function(ctx, x, y, gameArea) {
         speed = speeds;
     }
 
+    const getSpeed = function() {
+        return speed;
+    }
+
+    const getDirection = function() {
+        return direction;
+    }
+
     // This function updates the player depending on his movement.
     // - `time` - The timestamp when this function is called
     const update = function(time) {
@@ -123,6 +131,13 @@ const Player2 = function(ctx, x, y, gameArea) {
         sprite.update(time);
     };
 
+    const update_by_other = function(time, x, y, dir) {
+        if (gameArea.isPointInBox(x, y))
+            sprite.setXY(x, y);
+            move(dir);
+        sprite.update(time);
+    }
+
     // The methods are returned as an object here.
     return {
         move: move,
@@ -133,6 +148,10 @@ const Player2 = function(ctx, x, y, gameArea) {
         changeSpeed: changeSpeed,
         getBoundingBox: sprite.getBoundingBox,
         draw: sprite.draw,
-        update: update
+        getXY : sprite.getXY,
+        update: update,
+        update_by_other: update_by_other,
+        getSpeed: getSpeed,
+        getDirection : getDirection
     };
 };

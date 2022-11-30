@@ -132,6 +132,7 @@ app.get("/signout", (req, res) => {
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const { send } = require("process");
+const { info } = require("console");
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
@@ -206,6 +207,33 @@ io.on("connection", (socket) => {
 
     socket.on("send stat", (data) => {
         console.log(data);
+    });
+
+    socket.on("send loc", (now, x, y, direction, username, other) => {
+        let users = JSON.parse(fs.readFileSync("data/information.json"));
+        users[username]["x"] = x;
+        users[username]["y"] = y;
+        users[username]["dir"] = direction;
+        fs.writeFileSync("data/information.json", JSON.stringify(users, null, " "));
+        socket.emit("finish edit loc", now, username, other);
+    })
+
+    socket.on("get other loc", (now, username, other) => {
+        console.log("game server other loc");
+        const users = JSON.parse(fs.readFileSync("data/information.json"));
+        let x = 0;
+        let y = 0;
+        let dir = 0;
+        for (let key in users) {
+            if (username != key){   // take other user's location
+                let info = users[key];
+                x = info["x"];
+                y = info["y"];
+                dir = info["dir"];
+                break;
+            }
+        }
+        socket.emit("update other loc", now, x, y, dir, other);
     });
 });
 

@@ -1,4 +1,6 @@
-const main = function() {
+const main = function(I_am, isSender) {
+    const user = I_am;
+    const _isSender = isSender;
 
     const cv = $("canvas").get(0);
     const context = cv.getContext("2d");
@@ -102,13 +104,28 @@ const main = function() {
             return 0;
         }
         
+        if (_isSender){
+            Socket.send_loc(now, player1, user, player2);
+        }else{
+            Socket.send_loc(now, player2, user, player1);
+        }
+
+        let {other_x, other_y, other_dir} = Socket.get_other_loc();
+        console.log(other_x, other_y, other_dir);
+        if (_isSender){
+            player2.update_by_other(now, other_x, other_y, other_dir);
+            player1.update(now);
+        }else{
+            player1.update_by_other(now, other_x, other_y, other_dir);
+            player2.update(now);
+        }
         //Update objects
         //Refer to lab4 sprite.js
         vertical_stairs.forEach(stair => {stair.update(now)});
         horizontal_stairs.forEach(stair => {stair.update(now)});
         
-        player1.update(now);
-        player2.update(now);
+        //player1.update(now);
+        //player2.update(now);
 
         const {at_intersection1, at_vertical1} = playerStatus(player1, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer=true);
         const {at_intersection2, at_vertical2} = playerStatus(player2, vertical_stairs, horizontal_stairs, vertical_total, horizontal_total, isFirstplayer=false);
@@ -151,7 +168,7 @@ const main = function() {
     }
 
     //Handle game start event
-    $("#game-start").on("click", function () {
+    /*$("#game-start").on("click", function () {
 
         //Hide start page
         $("#game-start").hide();
@@ -169,5 +186,20 @@ const main = function() {
 
         //Start game
         requestAnimationFrame(doFrame);
-    });
+    });*/
+    $("#game-start").hide();
+
+    //Player controls
+    moving(player1, player2);
+    stopping(player1, player2);
+
+    //Randomize object positions
+    bombs.forEach(bomb => bomb.setBomb("idleBomb"));
+    hearts.forEach(heart => heart.setHeart());
+    enemies.forEach(enemy => enemy.setEnemy());
+    shields.forEach(shield => shield.setShield());
+    boots.forEach(boot => boot.setBoot());
+
+    //Start game
+    requestAnimationFrame(doFrame);
 }

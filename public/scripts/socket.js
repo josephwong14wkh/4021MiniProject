@@ -1,6 +1,11 @@
 const Socket = (function() {
     // This stores the current Socket.IO socket
     let socket = null;
+    let I_am = null;
+    let isSender = null;
+    let other_x = 0
+    let other_y = 0;
+    let other_dir = 0;
 
     // This function gets the socket from the module
     const getSocket = function() {
@@ -48,14 +53,30 @@ const Socket = (function() {
         socket.on("accept pair", (sender_name, recevier_name) => {     
             // console.log(sender_name, recevier_name);      
             if (Authentication.getUser().name == recevier_name) {
+                console.log("I am receiver ", recevier_name)
+                I_am = recevier_name;
+                isSender = false;
+                console.log(I_am, isSender);
                 const response = confirm("Do want to pair up with " + sender_name + "?");
                 if(response)
                     socket.emit("start game");
             }
         });
 
+        // Set up the get location event
+        socket.on("finish edit loc", (now, username, other) => {
+            socket.emit("get other loc", now, username, other);
+        });
+
+        // Set up the receive location event
+        socket.on("update other loc", (now, x, y, dir, other) => {
+            other_x = x;
+            other_y = y;
+            other_dir = dir;
+        })
+
         // start game 
-        socket.on("start game", startgame);
+        socket.on("start game", () => {startgame(I_am, isSender)});
     };
 
     // This function disconnects the socket from the server
@@ -74,13 +95,17 @@ const Socket = (function() {
     // This function send a pair up request to server
     const pairUser= function(sender_name, recevier_name) {
         if (socket && socket.connected) {
-            // console.log("send pair to" + username);
+            console.log("I am sender ", sender_name);
+            I_am = sender_name;
+            isSender = true;
+            console.log(I_am, isSender);
             socket.emit("pair user", sender_name, recevier_name);
         }
     };
-    const startgame = function() {
+    const startgame = function(I_am, isSender) {
         if (socket && socket.connected) {
-            main();
+            //console.log(I_am);
+            main(I_am, isSender);
         }
     };
 
@@ -90,6 +115,18 @@ const Socket = (function() {
             socket.emit("send stat", data);
         }
     }
+
+    // This function send players'location to server
+    const send_loc = function(now, player, username, other){
+        if (socket && socket.connected) {
+            const {x, y} = player.getXY();
+            const direction = player.getDirection();
+            socket.emit("send loc", now, x, y, direction, username, other);
+        }
+    }
     
-    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, send_stat};
+    const get_other_loc = function() {
+        return {other_x, other_y, other_dir};
+    }
+    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, send_stat, send_loc, get_other_loc};
 })();
