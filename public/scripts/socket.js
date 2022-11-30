@@ -56,12 +56,12 @@ const Socket = (function() {
         });
 
         // Set up the get location event
-        socket.on("finish edit loc", (now, username, other) => {
-            socket.emit("get other loc", now, username, other);
+        socket.on("finish edit loc", (type) => {
+            socket.emit("get other loc", type);
         });
 
         // Set up the receive location event
-        socket.on("update other loc", (now, x, y, dir, other) => {
+        socket.on("update other loc", (x, y, dir) => {
             other_x = x;
             other_y = y;
             other_dir = dir;
@@ -113,11 +113,11 @@ const Socket = (function() {
     }
 
     // This function send players'location to server
-    const send_loc = function(now, player, username, other){
+    const send_loc = function(type, player, username){
         if (socket && socket.connected) {
             const {x, y} = player.getXY();
             const direction = player.getDirection();
-            socket.emit("send loc", now, x, y, direction, username, other);
+            socket.emit("send loc", type, x, y, direction, username);
         }
     }
     
