@@ -1,6 +1,13 @@
 const main = function(I_am, isSender) {
     const user = I_am;
     const _isSender = isSender;
+    let type = null;
+
+    if (_isSender){
+        type = "1";
+    }else{
+        type = "2";
+    }
 
     const cv = $("canvas").get(0);
     const context = cv.getContext("2d");
@@ -116,13 +123,13 @@ const main = function(I_am, isSender) {
         }
         
         if (_isSender){
-            Socket.send_loc(now, player1, user, player2);
+            Socket.send_loc(type, player1, user);
         }else{
-            Socket.send_loc(now, player2, user, player1);
+            Socket.send_loc(type, player2, user);
         }
 
         let {other_x, other_y, other_dir} = Socket.get_other_loc();
-        
+
         if (_isSender){
             player2.update_by_other(now, other_x, other_y, other_dir);
             player1.update(now);
