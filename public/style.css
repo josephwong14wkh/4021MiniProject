@@ -354,14 +354,14 @@ canvas {
     text-align: center;
 }
 
-#pairup-container {
+.pairup-container {
     background-color: #beb4dd;
     width: 90%;
     height: 30%;
     text-align: center;
 }
 
-#pairup-windows {
+.pairup-windows {
     width: auto;
     padding: 30px 40px;
     text-align: center;

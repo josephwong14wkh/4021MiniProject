@@ -241,9 +241,9 @@ const ChatPanel = (function() {
         chatArea = $("#chat-area");
 
         chatArea.append(
-            $("<div id ='pairup-container'></div>").
-            append($("<div id ='pairup-windows'>Do you want to pair up with "+ name + "? </div>")).
-            append($("<div id='pair_button_container'></div>").
+            $("<div class ='pairup-container'></div>").
+            append($("<div class ='pairup-windows'>Do you want to pair up with "+ name + "? </div>")).
+            append($("<div class='pair_button_container'></div>").
             append($("<button id='pair_button' type='pair'>Pair</button> \
             <button id='unpair_button' type='unpair'>Cancel</button>"))));
         
@@ -258,23 +258,42 @@ const ChatPanel = (function() {
     };
 
     const show_endpage = function(time, health) {
-        // time = 14;
-        // health = 30; 
+        time = 14;
+        health = 30; 
 
-        // chatArea = $("#chat-area");
+        chatArea = $("#chat-area");
 
         // chatArea.append(
-		// 	$("<div class='chat-endpage-container'></div>")
+		// 	$("<div class ='pairup-container''></div>")
         //     .append($("<div class='chat-enpage-title'>" + "Game Statistics" + "<br><br></div>"))
         //     .append($("<div class='chat-date'>" + time + "</div>"))
         //     .append($("<div class='chat-content'>" + health + "</div>")));
+
+
+        // chatArea.append(
+        //     $("<div class ='pairup-container'></div>").
+        //     append($("<div class ='pairup-windows'>Game Statistics</div>")).
+        //     append($("<div class='col>" + time + "</div>")).
+        //     append($("<div class='col'>" + health + "</div>")));
+
+
+        // chatArea.append(
+        //     $("<div class='chat-message-panel row'></div>")
+
+        //         .append($("<div class='chat-message col'></div>")
+        //             .append($("<div class='chat-date'>" + time + "</div>"))
+        //             .append($("<div class='chat-content'>" + health + "</div>"))
+        //         )
+        // );    
+        
+        room_page();
     }
     const room_page = function() {
         setTimeout(()=> {
             $('#game-over').hide();
             $("#container").show();
             $("#game-container").hide();
-        }, 3000);
+        }, 2000);
     }
 
     return { initialize, update, hide_instruction, show_instruction, show_endpage, show_pairup, room_page };

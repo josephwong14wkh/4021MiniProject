@@ -95,7 +95,7 @@ const main = function(I_am, isSender) {
 
 
             Socket.get_stat();
-            ChatPanel.room_page();
+            ChatPanel.show_endpage();
 
             return 0;
         }else if (player1_box.isPointInBox(x, (y-20)) || $("#p2health").val() == 0){
@@ -106,7 +106,7 @@ const main = function(I_am, isSender) {
             $('#game-over text').text(text);
             $('#game-over').show();
 
-            ChatPanel.room_page();
+            ChatPanel.show_endpage();
 
             return 0;
         }else if (player2_box.isPointInBox(x, (y-20)) || $("#p1health").val() == 0){
@@ -117,7 +117,7 @@ const main = function(I_am, isSender) {
             $('#game-over text').text(text);
             $('#game-over').show();
 
-            ChatPanel.room_page();
+            ChatPanel.show_endpage();
 
             return 0;
         }
