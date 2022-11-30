@@ -137,6 +137,14 @@ const { type } = require("os");
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
+let randomx = [], initbomby = [], bomby = [], randomy = [];
+for (let i=0; i<70; i++) {
+    initbomby.push(Math.floor(Math.random() * -1000) - 100);
+    randomx.push(Math.random() * (1450 - 50) + 50);
+    bomby.push(Math.floor(Math.random() * 20));
+}
+for (let i=0; i<30; i++) randomy.push(Math.floor(Math.random() * 5));
+
 // A JavaScript object storing the online users 
 const onlineUsers = {};
 
@@ -242,6 +250,15 @@ io.on("connection", (socket) => {
         }
         socket.emit("update other loc", x, y, dir);
     });
+
+    socket.on("get random", () => {
+        rx = randomx.slice(0, 20);
+        iy = initbomby.slice(0, 20); 
+        by = bomby.slice(0, 20); 
+        ry = randomy.slice(0, 5);
+        all_random = {rx, iy, by, ry};
+        socket.emit("return random", all_random);
+    })
 });
 
 

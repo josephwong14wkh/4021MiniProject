@@ -30,6 +30,7 @@ const checkTouchBomb = (p1, p2, bombs, cvright, cvleft, sounds) => {
         let p2shields = parseInt($("#p2shield").text());
             
         if (p1box.isPointInBox(x, y)) {
+            console.log("hit!");
             bomb.setBomb("explode");
 
             //Sound effect

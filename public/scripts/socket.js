@@ -6,6 +6,11 @@ const Socket = (function() {
     let other_x = 0
     let other_y = 0;
     let other_dir = 0;
+    
+    let randomx = null;
+    let initbomby = null;
+    let bomby = null;
+    let randomy = null;
 
     // This function gets the socket from the module
     const getSocket = function() {
@@ -71,6 +76,14 @@ const Socket = (function() {
         socket.on("accept start game", () => {
             main(I_am, isSender);
         });
+
+        socket.on("return random", (all_random) => {
+            const {rx, iy, by, ry} = all_random;
+            randomx = rx;
+            initbomby = iy;
+            bomby = by;
+            randomy = ry;
+        })
     };
 
     // This function disconnects the socket from the server
@@ -126,5 +139,17 @@ const Socket = (function() {
     const get_other_loc = function() {
         return {other_x, other_y, other_dir};
     }
-    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, get_stat, send_loc, get_other_loc};
+
+    const request_random_number = function() {
+        if (socket && socket.connected) {
+            socket.emit("get random");
+        }
+    }
+
+    const get_random_number = function() {
+        return {randomx, initbomby, bomby, randomy};
+    }
+    return { getSocket, connect, disconnect, postMessage,
+             pairUser, startgame, get_stat, send_loc,
+             get_other_loc, request_random_number, get_random_number};
 })();
