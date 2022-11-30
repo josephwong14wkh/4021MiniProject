@@ -289,6 +289,7 @@ canvas, #counter, #game-start, #game-over {
     position: absolute;
     top: 0px;
     left: 0px;
+    width: 854px;
 }
 canvas, #game-start, #game-over {
     border: 1px solid gray;
@@ -322,6 +323,25 @@ canvas {
     font-size: 120%;
     fill: url(#game-over-fill);
     text-anchor: middle;
+}
+
+#p1health, #p2health {
+    width: 80px;
+    height: 20px;
+    border-radius: 5px;
+    margin: 20px 10px;
+    border: 3px solid black;
+    overflow: hidden;
+    top: 37px;
+    position: relative;
+}
+
+#p1health {
+    left: 30px;
+}
+
+#p2health {
+    left: 630px;
 }
 
 #start_game_button {
