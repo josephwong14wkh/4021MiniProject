@@ -194,7 +194,7 @@ const main = function(I_am, isSender) {
         timeRemaining--
         setTimeout(() => {
             $("#countdown").text(timeRemaining);
-            main();
+            main(I_am, isSender);
         }, 1000);
     }
     else {
