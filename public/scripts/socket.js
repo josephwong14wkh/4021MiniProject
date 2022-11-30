@@ -68,7 +68,9 @@ const Socket = (function() {
         })
 
         // start game 
-        socket.on("accept start game", () => {main(I_am, isSender)});
+        socket.on("accept start game", () => {
+            main(I_am, isSender);
+        });
     };
 
     // This function disconnects the socket from the server

@@ -202,7 +202,9 @@ const ChatPanel = (function() {
         text = "Your goal is to collect the star in top level of the map. \
                 You can also pick up different speical objects in the game. <br><br>\
                 Bomb will damage your health bar! <br> Heart will heal your health! <br>\
-                Shoes will speedup your character! <br> Sheild could protect you from a damage!" 
+                Shoes will speedup your character! <br> Sheild could protect you from a damage! <br><br>\
+                Player1's key (WASD) <br> Player2's key (↑←↓→)<br>\
+                Player1 cheat key: Shift <br> Player2's cheat key: H" 
 
         chatArea.append(
 			$("<div class='chat-instruction-container'></div>")
