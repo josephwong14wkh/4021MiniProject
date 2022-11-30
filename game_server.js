@@ -171,11 +171,11 @@ io.on("connection", (socket) => {
     });
     
     // Set up the get messages event
-    socket.on("get messages", () => {
-        // Send the chatroom messages to the browser
-        const messages = JSON.parse(fs.readFileSync("data/game.json"));
-        socket.emit("messages", JSON.stringify(messages));
-    });
+    // socket.on("get messages", () => {
+    //     // Send the chatroom messages to the browser
+    //     const messages = JSON.parse(fs.readFileSync("data/game.json"));
+    //     socket.emit("messages", JSON.stringify(messages));
+    // });
 
     // Set up the post message event 
     socket.on("post message", (content) => {
@@ -197,16 +197,22 @@ io.on("connection", (socket) => {
         io.emit("add message", JSON.stringify(new_message));
     });
 
+    // Server listen to browser to any pair request
     socket.on("pair user", (sender, recevier) => {
         io.emit("accept pair", sender, recevier);
     });
 
+    // Server event to notify the browsers to start game at the same time
     socket.on("start game", () => {
-        io.emit("start game");
+        io.emit("accept start game");
     });
 
-    socket.on("send stat", (data) => {
-        console.log(data);
+    // Server send the statistics data to both cilents
+    socket.on("send stat", () => {
+        // js obj
+        data =  JSON.parse(fs.readFileSync("data/game.json"));
+        // console.log("test1" + JSON.stringify(data));
+        io.emit("get stat", JSON.stringify(data));
     });
 
     socket.on("send loc", (now, x, y, direction, username, other) => {

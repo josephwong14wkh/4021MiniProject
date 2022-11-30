@@ -20,9 +20,6 @@ const Socket = (function() {
         socket.on("connect", () => {
             // Get the online user list
             socket.emit("get users");
-
-            // Get the chatroom messages
-            socket.emit("get messages");
         });
 
         // Set up the users event
@@ -53,10 +50,8 @@ const Socket = (function() {
         socket.on("accept pair", (sender_name, recevier_name) => {     
             // console.log(sender_name, recevier_name);      
             if (Authentication.getUser().name == recevier_name) {
-                console.log("I am receiver ", recevier_name)
                 I_am = recevier_name;
                 isSender = false;
-                console.log(I_am, isSender);
                 const response = confirm("Do want to pair up with " + sender_name + "?");
                 if(response)
                     socket.emit("start game");
@@ -76,7 +71,7 @@ const Socket = (function() {
         })
 
         // start game 
-        socket.on("start game", () => {startgame(I_am, isSender)});
+        socket.on("accept start game", () => {startgame(I_am, isSender)});
     };
 
     // This function disconnects the socket from the server
@@ -102,6 +97,7 @@ const Socket = (function() {
             socket.emit("pair user", sender_name, recevier_name);
         }
     };
+
     const startgame = function(I_am, isSender) {
         if (socket && socket.connected) {
             //console.log(I_am);
@@ -109,10 +105,16 @@ const Socket = (function() {
         }
     };
 
-    // This function send statistics data to sever
-    const send_stat = function(data) {
+    // This function request statistics data to sever
+    const get_stat = function() {
         if (socket && socket.connected) {
-            socket.emit("send stat", data);
+            socket.emit("send stat");
+        }
+    }
+
+    const end_game = function() {
+        if (socket && socket.connected) {
+            // main();
         }
     }
 

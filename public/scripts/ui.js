@@ -25,7 +25,6 @@ const SignInForm = (function() {
 
                     // hide the instr. page 
                     ChatPanel.hide_instruction();
-
                     Socket.connect();
                 },
                 (error) => { $("#signin-message").text(error); }
@@ -146,10 +145,9 @@ const OnlineUsersPanel = (function() {
                 );
                 // Set click icon pair up event
                 $("#username-" + username).on('click', ()=> {
-                    window.focus();
-                    const response = confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
-                    if (response)
-                        Socket.pairUser(currentUser.name ,onlineUsers[username].name);
+                    response = confirm("Are you sure you want to pair up with " + onlineUsers[username].name + "?");
+                    if(response) 
+                        Socket.pairUser(currentUser.name, onlineUsers[username].name);
                 });
             }
         }
@@ -172,15 +170,10 @@ const OnlineUsersPanel = (function() {
 
         // set up the pair up click
         $("#username-" + user.username).on('click', ()=> {
-            window.focus();
-            const response = confirm("Are you sure you want to pair up with " + user.name + "?");
-
+            response = confirm("Are you sure you want to pair up with " + user.name + "?");
             curr_user = Authentication.getUser();
-
-            // console.log(response);
-            if (response){
+            if(response) 
                 Socket.pairUser(curr_user.name ,user.name);
-            }
         });
 	};
 
@@ -242,6 +235,27 @@ const ChatPanel = (function() {
         $("#start_game_button_container").show();
     };
 
+    const show_pairup = function (name) {
+        chatArea = $("#chat-area");
+
+        chatArea.append(
+            $("<div id ='pairup-container'></div>").
+            append($("<div id ='pairup-windows'>Do you want to pair up with "+ name + "? </div>")).
+            append($("<div id='pair_button_container'></div>").
+            append($("<button id='pair_button' type='pair'>Pair</button> \
+            <button id='unpair_button' type='unpair'>Cancel</button>"))));
+        
+        $("#pair_button").on('click', ()=> {
+            chatArea.empty();
+            Socket.startgame();
+        });
+
+        $("#unpair_button").on('click', ()=> {
+            chatArea.empty();
+        });
+
+    };
+
     const show_endpage = function(time, health) {
         time = 14;
         health = 30; 
@@ -254,7 +268,7 @@ const ChatPanel = (function() {
             .append($("<div class='chat-date'>" + time + "</div>"))
             .append($("<div class='chat-content'>" + health + "</div>")));
     }
-    return { initialize, update, hide_instruction, show_instruction, show_endpage };
+    return { initialize, update, hide_instruction, show_instruction, show_endpage, show_pairup };
 })();
 
 
