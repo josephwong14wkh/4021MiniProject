@@ -17,7 +17,7 @@ const main = function() {
     
     };
 
-    const totalgametime = 180;
+    const totalgametime = 1;
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp
@@ -83,6 +83,9 @@ const main = function() {
             sounds.background.pause();
             sounds.gameover.play();
             $('#game-over').show();
+
+            Socket.get_stat();
+            
             return 0;
         }else if (player1_box.isPointInBox(x, (y-20))){
             sounds.background.pause();

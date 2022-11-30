@@ -32,10 +32,6 @@
                     <button id="start_game_button" type="begin">Begin</button>
                 </div>
                 <div id="chat-area" class="col"></div>
-                <!-- <form id="chat-input-form" autocomplete="off">
-                    <div id="typing-status"> </div>
-                    <input id="chat-input" placeholder="Enter your message"></input>
-                </form> -->
             </div>
 
             <div id="online-users-panel" class="col">
@@ -152,7 +148,6 @@
     <script src="scripts/all_stairs.js"></script>
     <script src="scripts/stair.js"></script>
     <script src="scripts/main.js"></script>
-    <script src="scripts/dialogs.js"></script>
 
 
     <script src="/socket.io/socket.io.min.js"></script>
@@ -167,7 +162,6 @@
         // Initialize the UI
         UI.initialize();
         
-
         // Validate the signin
         Authentication.validate(
             () => { //after login 
@@ -176,7 +170,6 @@
                 UserPanel.show();
 
                 ChatPanel.hide_instruction();
-
                 Socket.connect();
             },
             () => {                                                               

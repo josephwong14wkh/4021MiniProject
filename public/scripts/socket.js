@@ -15,9 +15,6 @@ const Socket = (function() {
         socket.on("connect", () => {
             // Get the online user list
             socket.emit("get users");
-
-            // Get the chatroom messages
-            socket.emit("get messages");
         });
 
         // Set up the users event
@@ -48,20 +45,20 @@ const Socket = (function() {
         socket.on("accept pair", (sender_name, recevier_name) => {     
             // console.log(sender_name, recevier_name);      
             if (Authentication.getUser().name == recevier_name) {
-                const response = confirm("Do want to pair up with " + sender_name + "?");
-                if(response)
-                    socket.emit("start game");
+                ChatPanel.show_pairup(sender_name);
             }
         });
 
-        // start game 
-        socket.on("start game", startgame);
-
         // recieve the statistics data from server 
         socket.on("get stat", (data) => {
-            console.log("test");
+            // console.log("test");
             console.log(data);
         });
+        
+        // recieve the statistics data from server 
+        socket.on("accept start game", () => {
+            main();
+    });   
     };
 
     // This function disconnects the socket from the server
@@ -84,9 +81,11 @@ const Socket = (function() {
             socket.emit("pair user", sender_name, recevier_name);
         }
     };
+
+    // This function send to server to notify the game can be started
     const startgame = function() {
         if (socket && socket.connected) {
-            main();
+            socket.emit("start game");
         }
     };
 
@@ -96,6 +95,12 @@ const Socket = (function() {
             socket.emit("send stat");
         }
     }
+
+    const end_game = function() {
+        if (socket && socket.connected) {
+            // main();
+        }
+    }
     
-    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, get_stat};
+    return { getSocket, connect, disconnect, postMessage, pairUser, startgame, get_stat, end_game};
 })();

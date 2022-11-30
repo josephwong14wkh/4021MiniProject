@@ -334,3 +334,20 @@ canvas {
     text-align: center;
 }
 
+#pairup-container {
+    background-color: #beb4dd;
+    width: 90%;
+    height: 30%;
+    text-align: center;
+}
+
+#pairup-windows {
+    width: auto;
+    padding: 30px 40px;
+    text-align: center;
+    font-size: 120%;
+}
+/* #pair_button_container {
+    position: relative;
+    text-align: center;
+} */
