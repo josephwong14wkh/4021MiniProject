@@ -18,5 +18,15 @@
   "avatar": "Rabbit Face",
   "name": "lam",
   "password": "$2b$10$4I1y11YxgnLBzU7T25JbRut/8yjn5CzvY9lCJrWYRaRk98.znlI.u"
+ },
+ "test1": {
+  "avatar": "Hamster",
+  "name": "testname1",
+  "password": "$2b$10$TIh5b/.AwfWoVJUdGaPUA./8utrcZT7DFyxpzEZF/I4i.uqlC.7hy"
+ },
+ "test2": {
+  "avatar": "Hamster",
+  "name": "testname2",
+  "password": "$2b$10$0AFwQGrtMEYXjX8v4CezZedemjHMuMWkvwab.WBzvpBWyla.ftk86"
  }
 }
