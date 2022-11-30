@@ -1,8 +1,8 @@
 let timeRemaining = 3;
 
 const main = function(I_am, isSender) {
-    if (document.getElementById("p1health").value == 0) document.getElementById("p1health").value = 100;
-    if (document.getElementById("p2health").value == 0) document.getElementById("p2health").value = 100;
+    if (document.getElementById("p1health").value != 100) document.getElementById("p1health").value = 100;
+    if (document.getElementById("p2health").value != 100) document.getElementById("p2health").value = 100;
 
     const user = I_am;
     const _isSender = isSender;

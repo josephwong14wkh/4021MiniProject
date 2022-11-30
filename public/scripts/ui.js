@@ -257,37 +257,37 @@ const ChatPanel = (function() {
         });
     };
 
-    const show_endpage = function(time, health) {
+    const show_endpage = function(time, health1, health2) {
         time = 14;
-        health = 30; 
+        health1 = 30; 
+        health2 = 50;
 
         chatArea = $("#chat-area");
 
-        // chatArea.append(
-		// 	$("<div class ='pairup-container''></div>")
-        //     .append($("<div class='chat-enpage-title'>" + "Game Statistics" + "<br><br></div>"))
-        //     .append($("<div class='chat-date'>" + time + "</div>"))
-        //     .append($("<div class='chat-content'>" + health + "</div>")));
+        var div = document.createElement('div');
+        div.innerHTML = `<table class="styled-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Health</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Player1</td>
+                <td>` + health1 + `1</td>
+            </tr>
+            <tr class="active-row">
+                <td>Player2</td>
+                <td>` + health2 + `</td>
+                </tr>
+            </tbody>
+        </table>`;
 
-
-        // chatArea.append(
-        //     $("<div class ='pairup-container'></div>").
-        //     append($("<div class ='pairup-windows'>Game Statistics</div>")).
-        //     append($("<div class='col>" + time + "</div>")).
-        //     append($("<div class='col'>" + health + "</div>")));
-
-
-        // chatArea.append(
-        //     $("<div class='chat-message-panel row'></div>")
-
-        //         .append($("<div class='chat-message col'></div>")
-        //             .append($("<div class='chat-date'>" + time + "</div>"))
-        //             .append($("<div class='chat-content'>" + health + "</div>"))
-        //         )
-        // );    
-        
+        chatArea.append(div);
         room_page();
     }
+
     const room_page = function() {
         setTimeout(()=> {
             $('#game-over').hide();
