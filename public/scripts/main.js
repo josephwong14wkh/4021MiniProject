@@ -1,3 +1,5 @@
+let timeRemaining = 3;
+
 const main = function(I_am, isSender) {
     const user = I_am;
     const _isSender = isSender;
@@ -185,11 +187,15 @@ const main = function(I_am, isSender) {
         requestAnimationFrame(doFrame);
     }
 
-    //Handle game start event
-    /*$("#game-start").on("click", function () {
-
-        //Hide start page
-        $("#game-start").hide();
+    if (timeRemaining > 0) {
+        timeRemaining--
+        setTimeout(() => {
+            $("#countdown").text(timeRemaining);
+            main();
+        }, 1000);
+    }
+    else {
+        $("#countdown").hide();
 
         //Player controls
         moving(player1, player2);
@@ -204,20 +210,5 @@ const main = function(I_am, isSender) {
 
         //Start game
         requestAnimationFrame(doFrame);
-    });*/
-    $("#game-start").hide();
-
-    //Player controls
-    moving(player1, player2);
-    stopping(player1, player2);
-
-    //Randomize object positions
-    bombs.forEach(bomb => bomb.setBomb("idleBomb"));
-    hearts.forEach(heart => heart.setHeart());
-    enemies.forEach(enemy => enemy.setEnemy());
-    shields.forEach(shield => shield.setShield());
-    boots.forEach(boot => boot.setBoot());
-
-    //Start game
-    requestAnimationFrame(doFrame);
+        }
 }
