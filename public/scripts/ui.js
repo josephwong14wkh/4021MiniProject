@@ -255,22 +255,29 @@ const ChatPanel = (function() {
         $("#unpair_button").on('click', ()=> {
             chatArea.empty();
         });
-
     };
 
     const show_endpage = function(time, health) {
-        time = 14;
-        health = 30; 
+        // time = 14;
+        // health = 30; 
 
-        chatArea = $("#chat-area");
+        // chatArea = $("#chat-area");
 
-        chatArea.append(
-			$("<div class='chat-endpage-container'></div>")
-            .append($("<div class='chat-enpage-title'>" + "Game Statistics" + "<br><br></div>"))
-            .append($("<div class='chat-date'>" + time + "</div>"))
-            .append($("<div class='chat-content'>" + health + "</div>")));
+        // chatArea.append(
+		// 	$("<div class='chat-endpage-container'></div>")
+        //     .append($("<div class='chat-enpage-title'>" + "Game Statistics" + "<br><br></div>"))
+        //     .append($("<div class='chat-date'>" + time + "</div>"))
+        //     .append($("<div class='chat-content'>" + health + "</div>")));
     }
-    return { initialize, update, hide_instruction, show_instruction, show_endpage, show_pairup };
+    const room_page = function() {
+        setTimeout(()=> {
+            $('#game-over').hide();
+            $("#container").show();
+            $("#game-container").hide();
+        }, 3000);
+    }
+
+    return { initialize, update, hide_instruction, show_instruction, show_endpage, show_pairup, room_page };
 })();
 
 

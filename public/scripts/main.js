@@ -19,7 +19,7 @@ const main = function(I_am, isSender) {
     
     };
 
-    const totalgametime = 180;
+    const totalgametime = 2;
     let gamestarttime = 0;
 
     //boundary of gamearea, should be const, using let for temp
@@ -86,8 +86,10 @@ const main = function(I_am, isSender) {
             sounds.gameover.play();
             $('#game-over').show();
 
+
             Socket.get_stat();
-            
+            ChatPanel.room_page();
+
             return 0;
         }else if (player1_box.isPointInBox(x, (y-20)) || $("#p2health").val() == 0){
             sounds.background.pause();
@@ -96,6 +98,9 @@ const main = function(I_am, isSender) {
             text = win_user + " win the game!";
             $('#game-over text').text(text);
             $('#game-over').show();
+
+            ChatPanel.room_page();
+
             return 0;
         }else if (player2_box.isPointInBox(x, (y-20)) || $("#p1health").val() == 0){
             sounds.background.pause();
@@ -104,6 +109,9 @@ const main = function(I_am, isSender) {
             text = win_user + " win the game!";
             $('#game-over text').text(text);
             $('#game-over').show();
+
+            ChatPanel.room_page();
+
             return 0;
         }
         
